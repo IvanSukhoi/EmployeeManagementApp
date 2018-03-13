@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using EmployeeManagement.Data.EF.DAL;
+﻿using EmployeeManagement.Data.EF.DAL;
 using EmployeeManagement.Data.EF.Entities;
 using EmployeeManagement.Domain.DataInterfaces;
 using EmployeeManagement.Domain.Models;
