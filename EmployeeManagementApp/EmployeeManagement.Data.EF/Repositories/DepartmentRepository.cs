@@ -47,7 +47,6 @@ namespace EmployeeManagement.Data.EF.Repositories
 
         }
 
-
         public void Save()
         {
             _dbContext.SaveChanges();
