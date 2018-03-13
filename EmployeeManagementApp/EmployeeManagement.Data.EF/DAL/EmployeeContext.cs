@@ -15,15 +15,7 @@ namespace EmployeeManagement.Data.EF.DAL
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<EmployeeEntity>().ToTable("Employee");
-                //.HasRequired(x => x.Department)
-                //.WithRequiredPrincipal(x => x.Leader);
-
             modelBuilder.Entity<DepartmentEntity>().ToTable("Department");
-                //HasMany(x => x.Employees)
-                //.HasForeignKey(x => x.DepartmentID);
-
-           // base.OnModelCreating(modelBuilder);
-            //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
     }
 }
