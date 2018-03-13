@@ -1,0 +1,19 @@
+﻿@model IEnumerable<EmployeeManagement.WebUI.Models.EmployeeViewModel>
+
+@{
+    ViewBag.Title = "List";
+}
+
+@foreach (var p in Model)
+{
+<div class="item">
+    <h3>@p.FirstName @p.LastName</h3>
+    <h3>@p.ManagerID</h3>
+    <h3>@p.DepartmentName</h3>
+    <h3>@p.EmployeeID</h3>
+    <h3>@p.Sex</h3>
+    <h3>@p.DepartmentID</h3>
+</div>
+}
+
+
