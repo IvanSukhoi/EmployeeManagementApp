@@ -44,8 +44,5 @@ namespace EmployeeManagement.Data.EF.Tests
             //assert
             Assert.AreEqual(10, actual.Count());
         }
-        
-        
-
     }
 }
