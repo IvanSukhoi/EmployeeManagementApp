@@ -1,12 +1,8 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using EmployeeManagement.Domain.DomainInterfaces;
 using EmployeeManagement.Domain.Models;
 using EmployeeManagement.WebUI.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace EmployeeManagement.WebUI.Controllers
