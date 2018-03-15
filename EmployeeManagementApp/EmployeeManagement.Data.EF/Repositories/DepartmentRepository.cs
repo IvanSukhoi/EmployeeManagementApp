@@ -11,21 +11,23 @@ namespace EmployeeManagement.Data.EF.Repositories
     public class DepartmentRepository : IDepartmentRepository
     {
         private readonly EmployeeContext _dbContext;
+        private readonly IMapper _mapper;
 
-        public DepartmentRepository(EmployeeContext dbContext)
+        public DepartmentRepository(EmployeeContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
+            _mapper = mapper;
         }
 
         public void Create(Department department)
         {
-            var departmentEntity = Mapper.Map<Department, DepartmentEntity>(department);   
+            var departmentEntity = _mapper.Map<Department, DepartmentEntity>(department);   
            _dbContext.Departments.Add(departmentEntity);
         }
 
         public List<Department> GetAll()
         {
-            var departments = Mapper.Map<List<DepartmentEntity>, List<Department>>(_dbContext.Departments.ToList());
+            var departments = _mapper.Map<List<DepartmentEntity>, List<Department>>(_dbContext.Departments.ToList());
             return departments;
         }
 
@@ -38,7 +40,7 @@ namespace EmployeeManagement.Data.EF.Repositories
 
         public Department Get(int departmentId)
         {
-            var department = Mapper.Map<DepartmentEntity, Department>(_dbContext.Departments.FirstOrDefault(x => x.ID == departmentId));
+            var department = _mapper.Map<DepartmentEntity, Department>(_dbContext.Departments.FirstOrDefault(x => x.ID == departmentId));
             return department;
         }
 

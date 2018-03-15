@@ -16,8 +16,6 @@ namespace EmployeeManagement.WebUI
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             CastleWindsor.Setup();
             AutoMapperConfiguration.Configure();
-
-
         }
 
     protected void Application_End()

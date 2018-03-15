@@ -1,52 +1,51 @@
 ﻿using EmployeeManagement.Data.EF.DAL;
 using EmployeeManagement.Data.EF.Entities;
 using EmployeeManagement.Data.EF.Repositories;
-using Moq;
+using FakeItEasy;
 using NUnit.Framework;
 using System.Data.Entity;
 using System.Linq;
+using AutoMapper;
+using EmployeeManagement.Domain.Models;
+using System.Collections.Generic;
 
 namespace EmployeeManagement.Data.EF.Tests
 {
-    [TestFixture]
     public class DepartmentRepositoryTest
     {
-        public IQueryable<EmployeeEntity> employees;
-        private Mock<DbSet<EmployeeEntity>> databaseSet;
-        private Mock<EmployeeContext> databaseContext;
-        private DepartmentRepository repository;
+        private EmployeeContext _fakeContext;
+        private DepartmentRepository _repository;
+        private IMapper _mapper;      
+        public  IQueryable<DepartmentEntity> departmentEntity;
 
+        [SetUp]
         public void SetUp()
         {
-            databaseSet = new Mock<DbSet<EmployeeEntity>>();
-            databaseSet.As<IQueryable<EmployeeEntity>>().Setup(query => query.Provider)
-                                              .Returns(employees.Provider);
-            databaseSet.As<IQueryable<EmployeeEntity>>().Setup(query => query.Expression)
-                                              .Returns(employees.Expression);
-            databaseSet.As<IQueryable<EmployeeEntity>>().Setup(query => query.ElementType)
-                                              .Returns(employees.ElementType);
-            databaseSet.As<IQueryable<EmployeeEntity>>().Setup(query => query.GetEnumerator())
-                                              .Returns(employees.GetEnumerator);
+            _fakeContext = DbContextTest.CreateDbContext<EmployeeContext>();
 
-            databaseContext = new Mock<EmployeeContext>();
-            databaseContext.Setup(context => context.Employees)
-                           .Returns(databaseSet.Object);
+            departmentEntity = Enumerable.Repeat(new DepartmentEntity(), 10).AsQueryable();
+            var departments = Enumerable.Repeat(new Department(), 10);
 
-            repository = new DepartmentRepository(databaseContext.Object);
+            _mapper = A.Fake<IMapper>();
+            A.CallTo(() => _mapper.Map<List<DepartmentEntity>, List<Department>>(A<List<DepartmentEntity>>.Ignored))
+                .ReturnsLazily(() => departments.Take(departmentEntity.ToList().Count).ToList());
+            _repository = new DepartmentRepository(_fakeContext, _mapper);
         }
 
         [Test]
         public void GetAll_ReturnsAll()
         {
             //arrange
-            employees = Enumerable.Repeat(new EmployeeEntity(), 2).AsQueryable();
-            SetUp();
+            _fakeContext.Departments.Insert(departmentEntity.ToArray());
 
             //act
-            var actual = repository.GetAll();
+            var actual = _repository.GetAll();
 
             //assert
-            Assert.AreEqual(2, actual.Count());
+            Assert.AreEqual(10, actual.Count());
         }
+        
+        
+
     }
 }

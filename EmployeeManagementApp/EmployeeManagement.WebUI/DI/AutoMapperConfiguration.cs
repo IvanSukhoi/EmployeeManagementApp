@@ -4,7 +4,7 @@ using EmployeeManagement.WebUI.Mappings;
 
 namespace EmployeeManagement.WebUI.DI
 {
-    public static class AutoMapperConfiguration 
+    public static class AutoMapperConfiguration  
     {
         public static void Configure()
         {

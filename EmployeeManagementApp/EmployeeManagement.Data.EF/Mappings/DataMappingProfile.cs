@@ -10,9 +10,12 @@ namespace EmployeeManagement.Data.EF.Mapp
     {
         public DataMappingProfile()
         {
-            CreateMap<DepartmentEntity, Department>();
-            CreateMap<Department, DepartmentEntity>();
-                
+            CreateMap<DepartmentEntity, Department>()
+                .ForMember(s => s.EmployeeID, opt => opt.MapFrom(c => c.EmployeeID));
+
+            CreateMap<Department, DepartmentEntity>()
+                .ForMember(s => s.EmployeeID, opt => opt.MapFrom(c => c.EmployeeID));
+
             CreateMap<EmployeeEntity, Developer>()
                     .ForMember(x => x.Tasks, opt => opt.Ignore())
                     .ForMember(s => s.Department, opt => opt.MapFrom(c => c.Department));
