@@ -1,4 +1,5 @@
-﻿using Castle.MicroKernel.Registration;
+﻿using AutoMapper;
+using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
@@ -30,6 +31,7 @@ namespace EmployeeManagement.WebUI.DI
 
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            container.Register(Component.For<IMapper>().ImplementedBy<Mapper>().LifeStyle.PerWebRequest);
             container.Register(Component.For<EmployeeContext>().LifeStyle.PerWebRequest);
             container.Register(Component.For<IEmployeeRepository>().ImplementedBy<EmployeeRepository>().LifeStyle.PerWebRequest);
             container.Register(Component.For<IDepartmentRepository>().ImplementedBy<DepartmentRepository>().LifeStyle.PerWebRequest);

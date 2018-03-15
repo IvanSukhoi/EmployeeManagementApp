@@ -9,8 +9,8 @@ namespace EmployeeManagement.Data.EF.DAL
         {
         }
 
-        public DbSet<EmployeeEntity> Employees { get; set; }
-        public DbSet<DepartmentEntity> Departments { get; set; }
+        public virtual IDbSet<EmployeeEntity> Employees { get; set; }
+        public virtual IDbSet<DepartmentEntity> Departments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
