@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using EmployeeManagement.Data.EF.DAL;
@@ -35,18 +36,32 @@ namespace EmployeeManagement.Data.EF.Repositories
         {
             DepartmentEntity departmentEntity = _dbContext.Departments.FirstOrDefault(x => x.ID == departmentId);
             if (departmentEntity != null)
+            {
                 _dbContext.Departments.Remove(departmentEntity);
+            }
+            else
+            {
+                throw new ObjectDisposedException("Object with such Id was not found");
+            }
         }
 
         public Department Get(int departmentId)
         {
-            var department = _mapper.Map<DepartmentEntity, Department>(_dbContext.Departments.FirstOrDefault(x => x.ID == departmentId));
-            return department;
+            DepartmentEntity departmentEntity = _dbContext.Departments.FirstOrDefault(x => x.ID == departmentId);
+            if (departmentEntity != null)
+            {
+                var department = _mapper.Map<DepartmentEntity, Department>(departmentEntity);
+                return department;
+            }
+            else
+            {
+                throw new ObjectDisposedException("Object with such Id was not found");
+            }
         }
 
         public void Update(Department department)
         {
-
+            throw new NotImplementedException();
         }
 
         public void Save()

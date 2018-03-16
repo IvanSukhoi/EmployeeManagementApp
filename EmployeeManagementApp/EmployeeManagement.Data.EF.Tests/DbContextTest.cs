@@ -35,7 +35,7 @@ public class DbContextTest
 
 public static class DbSetExtentions
 {
-    public static void Insert<T>(this IDbSet<T> dbset, params T[] range) where T : class
+    public static void AddRange<T>(this IDbSet<T> dbset, params T[] range) where T : class
     {
         foreach (var item in range)
         {

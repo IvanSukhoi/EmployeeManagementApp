@@ -26,6 +26,7 @@ namespace EmployeeManagement.Data.EF.Entities
         [Required]
         public Profession Profession { get; set; }
         public Position? Position { get; set; }
+
         [Required]
         public Sex Sex { get; set; }
 

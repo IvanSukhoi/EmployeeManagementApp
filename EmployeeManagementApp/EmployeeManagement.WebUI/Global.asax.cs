@@ -7,7 +7,6 @@ namespace EmployeeManagement.WebUI
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -17,7 +16,7 @@ namespace EmployeeManagement.WebUI
             CastleWindsor.Setup();
             AutoMapperConfiguration.Configure();
         }
-
+   
     protected void Application_End()
         {
             CastleWindsor.Dispose();

@@ -27,6 +27,6 @@ public class TestDbQueryProvider<TEntity> : IQueryProvider
 
     public TResult Execute<TResult>(Expression expression)
     {
-        throw new System.NotImplementedException();
+        return _inner.Execute<TResult>(expression);
     }
 }
