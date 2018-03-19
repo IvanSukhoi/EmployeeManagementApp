@@ -31,7 +31,7 @@ namespace EmployeeManagement.Data.EF.Tests
         public void GetAll_ReturnsAll()
         {
             //arrange
-            List<DepartmentEntity> departmentEntity = departmentEntity = Enumerable.Repeat(new DepartmentEntity(), 10).ToList();
+            List<DepartmentEntity> departmentEntity = Enumerable.Repeat(new DepartmentEntity(), 10).ToList();
             _fakeContext.Departments.AddRange(departmentEntity.ToArray());
 
             var departments = Enumerable.Repeat(new Department(), 10).ToList();
@@ -50,35 +50,36 @@ namespace EmployeeManagement.Data.EF.Tests
         public void Map_NoMappedObject_MappedObject()
         {
             //arrange
-            List<DepartmentEntity> listDepartmntEntity = new List<DepartmentEntity>();
+            List<DepartmentEntity> listDepartmentEntity = new List<DepartmentEntity>();
             List<Department> listDepartment = new List<Department>();
 
-            var listEmployeeID1 = new List<int>(new int[] {1, 2});
-            var listEmployeeID2 = new List<int>(new int[] { 3, 4, 5 });
+            var listEmployeeID = new List<int>(new int[] { 1, 2 ,3});
 
-            listDepartmntEntity.Add(new DepartmentEntity() { EmployeeID = listEmployeeID1, ID = 5, Name = "HR" });
-            listDepartmntEntity.Add(new DepartmentEntity() { EmployeeID = listEmployeeID2, ID = 8, Name = "Bookkeeping" });
+            listDepartmentEntity.Add(new DepartmentEntity() { EmployeeID = listEmployeeID, ID = 5, Name = "HR" });
+            listDepartmentEntity.Add(new DepartmentEntity() { EmployeeID = listEmployeeID, ID = 8, Name = "Bookkeeping" });
 
-            var department1 = new Department() { EmployeeID = listEmployeeID1, ID = 5, Name = "HR" };
-            var department2 = new Department() { EmployeeID = listEmployeeID2, ID = 8, Name = "Bookkeeping" };
+            listDepartment.Add(new Department() { EmployeeID = listEmployeeID, ID = 5, Name = "HR" });
+            listDepartment.Add(new Department() { EmployeeID = listEmployeeID, ID = 8, Name = "Bookkeeping" });
 
-            listDepartment.Add(department1);
-            listDepartment.Add(department2);
+            _fakeContext.Departments.AddRange(listDepartmentEntity.ToArray());
+
+            A.CallTo(() => _mapper.Map<List<DepartmentEntity>, List<Department>>(A<List<DepartmentEntity>>.Ignored)).Returns(listDepartment);
+            _fakeContext.Departments.AddRange(listDepartmentEntity.ToArray());
 
             //act
-            A.CallTo(() => _mapper.Map<List<DepartmentEntity>, List<Department>>(listDepartmntEntity)).Returns(listDepartment);
-            
+            var actual = _repository.GetAll();
+
             //assert
-            Assert.AreEqual(listDepartmntEntity.First().EmployeeID, listDepartment.First().EmployeeID);
-            Assert.AreEqual(listDepartmntEntity.First().ID, listDepartment.First().ID);
-            Assert.AreEqual(listDepartmntEntity.First().Name, listDepartment.First().Name);
+            Assert.AreEqual(actual.First().EmployeeID, listDepartment.First().EmployeeID);
+            Assert.AreEqual(actual.First().ID, listDepartment.First().ID);
+            Assert.AreEqual(actual.First().Name, listDepartment.First().Name);
 
-            Assert.AreEqual(listDepartmntEntity.Last().EmployeeID, listDepartment.Last().EmployeeID);
-            Assert.AreEqual(listDepartmntEntity.Last().ID, listDepartment.Last().ID);
-            Assert.AreEqual(listDepartmntEntity.Last().Name, listDepartment.Last().Name);
+            Assert.AreEqual(actual.Last().EmployeeID, listDepartment.Last().EmployeeID);
+            Assert.AreEqual(actual.Last().ID, listDepartment.Last().ID);
+            Assert.AreEqual(actual.Last().Name, listDepartment.Last().Name);
 
-            Assert.AreEqual(department1, listDepartment.First());
-            Assert.AreEqual(department2, listDepartment.Last());
+            Assert.AreEqual(actual.First(), listDepartment.First());
+            Assert.AreEqual(actual.Last(), listDepartment.Last());
         }
         
         [Test]
@@ -86,7 +87,7 @@ namespace EmployeeManagement.Data.EF.Tests
         {
             //arrange
             var department = new Department() { EmployeeID = new List<int>(new int[] {1, 2}) , ID = 5, Name = "HR" };
-            var departmentEntity = new DepartmentEntity() { EmployeeID = new List<int> (new int[]{ 1, 2}), ID = 10, Name = "Development" };
+            var departmentEntity = new DepartmentEntity() { EmployeeID = new List<int> (new int[]{ 1, 2}), ID = 10, Name = "HR" };
             A.CallTo(() => _mapper.Map<Department, DepartmentEntity>(department)).Returns(departmentEntity);
 
             //act

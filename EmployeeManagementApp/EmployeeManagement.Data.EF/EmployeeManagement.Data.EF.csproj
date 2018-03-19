@@ -55,7 +55,6 @@
     <Compile Include="Mappings\DataBindingFactory.cs" />
     <Compile Include="Entities\DepartmentEntity.cs" />
     <Compile Include="Entities\EmployeeEntity.cs" />
-    <Compile Include="Enums\Profession.cs" />
     <Compile Include="Migrations\201803051242291__UpdateModels.cs" />
     <Compile Include="Migrations\201803051242291__UpdateModels.Designer.cs">
       <DependentUpon>201803051242291__UpdateModels.cs</DependentUpon>

@@ -2,6 +2,6 @@
 {
     public class ServiceWorker : Employee
     {
-       public TypeOfServiceWorker TypeOfWorker { get; set; }
+       public Profession TypeOfWorker { get; set; }
     }
 }

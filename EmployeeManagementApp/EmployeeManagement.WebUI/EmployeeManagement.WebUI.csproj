@@ -164,7 +164,6 @@
     <Compile Include="DI\CastleWindsor.cs" />
     <Compile Include="DI\WindsorControllerFactory.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Enums\Sex.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

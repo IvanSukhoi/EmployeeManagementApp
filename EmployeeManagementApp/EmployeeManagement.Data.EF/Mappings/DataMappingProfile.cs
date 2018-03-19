@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using EmployeeManagement.Data.EF.Entities;
 using EmployeeManagement.Domain.Models;
-using System;
-using System.Collections;
 
 namespace EmployeeManagement.Data.EF.Mapp
 {
@@ -40,6 +38,7 @@ namespace EmployeeManagement.Data.EF.Mapp
             CreateMap<ServiceWorker, EmployeeEntity>()
                     .ForMember(s => s.Profession, opt => opt.MapFrom(c => c.TypeOfWorker))
                     .ForMember(s => s.Department, opt => opt.MapFrom(c => c.Department));
+
         }
     }
 }

@@ -1,7 +1,9 @@
-﻿using EmployeeManagement.Data.EF.DAL;
+﻿using AutoMapper;
+using EmployeeManagement.Data.EF.DAL;
 using EmployeeManagement.Data.EF.Entities;
 using EmployeeManagement.Domain.DataInterfaces;
 using EmployeeManagement.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,11 +13,13 @@ namespace EmployeeManagement.Data.EF.Repositories
     {
         private readonly EmployeeContext _dbContext;
         private readonly MapperFactory _factotory;
+        private readonly IMapper _mapper;
 
-        public EmployeeRepository(EmployeeContext dbContext)
+        public EmployeeRepository(EmployeeContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
-            _factotory = new MapperFactory();
+            _mapper = mapper;
+            _factotory = new MapperFactory(_mapper);
         }
 
         public void Create(Employee employee)
@@ -27,31 +31,45 @@ namespace EmployeeManagement.Data.EF.Repositories
         public Employee Get(int emoloyeeId)
         {
             var employeeEntity = _dbContext.Employees.FirstOrDefault(x => x.ID == emoloyeeId);
-            var employee = _factotory.GetEmployee<Employee>(employeeEntity);
-            return employee;
-           
+            if (employeeEntity != null)
+            {
+                var employee = _factotory.GetEmployee<Employee>(employeeEntity);
+                return employee;
+            }
+            else
+            {
+                throw new ObjectDisposedException("Object with such Id was not found");
+            }
         }
 
         public List<Employee> GetAll()
         {
-            var employees = new List<Employee>();
-            foreach(var i in _dbContext.Employees.ToList())
+            var result = new List<Employee>();
+            var employees = _dbContext.Employees.ToList();
+
+            foreach (var i in employees)
             {
-                employees.Add(_factotory.GetEmployee<Employee>(i));
+                result.Add(_factotory.GetEmployee<Employee>(i));
             }
-            return employees;
+            return result;
         }
 
         public void Delete(int employeeId)
-        { 
+        {
             EmployeeEntity employeeEntity = _dbContext.Employees.FirstOrDefault(x => x.ID == employeeId);
             if (employeeEntity != null)
+            {
                 _dbContext.Employees.Remove(employeeEntity);
+            }
+            else
+            {
+                throw new ObjectDisposedException("Object with such Id was not found");
+            }
         }
 
         public void Update(Employee employee)
-        { 
-
+        {
+            throw new NotImplementedException();
         }
 
         public void Save()

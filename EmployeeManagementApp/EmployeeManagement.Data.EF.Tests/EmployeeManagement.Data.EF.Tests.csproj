@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="DbContextTest.cs" />
     <Compile Include="DepartmentRepositoryTest.cs" />
+    <Compile Include="EmployeeRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestDbEnumerable.cs" />
     <Compile Include="TestDbEnumerator.cs" />
