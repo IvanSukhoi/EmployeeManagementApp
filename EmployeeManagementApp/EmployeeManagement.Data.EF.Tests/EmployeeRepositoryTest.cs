@@ -30,30 +30,11 @@ namespace EmployeeManagement.Data.EF.Tests
         public void Create_Developer_NewEmployeeEntityInContext()
         {
             //arrange
-            var developer = new Developer()
-            {
-                ID = 0,
-                DepartmentID = 1,
-                Department = null,
-                FirstName = "Vlad",
-                MidleName = null,
-                LastName = "Ivanov",
-                ManagerID = 12,
-                Position = Position.Intern,
-                Sex = Sex.Female
-            };
+            var developer = new Developer();
 
             var employeeEntity = new EmployeeEntity()
             {
-                ID = 0,
-                DepartmentID = 1,
-                Department = null,
-                FirstName = "Vlad",
-                MidleName = null,
-                LastName = "Ivanov",
-                ManagerID = 12,
-                Position = Position.Intern,
-                Sex = Sex.Female
+                Profession = Profession.Developer
             };
 
             A.CallTo(() => _mapper.Map<Developer, EmployeeEntity>(developer)).Returns(employeeEntity);
@@ -69,28 +50,11 @@ namespace EmployeeManagement.Data.EF.Tests
         public void Create_Manager_NewEmployeeEntityInContext()
         {
             //arrange
-            var manager = new Manager()
-            {
-                ID = 0,
-                DepartmentID = 1,
-                Department = null,
-                FirstName = "Vlad",
-                MidleName = null,
-                LastName = "Ivanov",
-                ManagerID = 12,
-                Sex = Sex.Female,
-            };
+            var manager = new Manager();
 
             var employeeEntity = new EmployeeEntity()
             {
-                ID = 5,
-                DepartmentID = 2,
-                Department = null,
-                FirstName = "Petr",
-                MidleName = null,
-                LastName = "Petrov",
-                ManagerID = 10,
-                Sex = Sex.Female
+                Profession = Profession.Manager
             };
 
             A.CallTo(() => _mapper.Map<Manager, EmployeeEntity>(manager)).Returns(employeeEntity);
@@ -106,28 +70,11 @@ namespace EmployeeManagement.Data.EF.Tests
         public void Create_ServiceWorker_NewEmployeeEntityInContext()
         {
             //arrange
-            var serviceWorker = new ServiceWorker()
-            {
-                ID = 0,
-                DepartmentID = 1,
-                Department = null,
-                FirstName = "Andrey",
-                MidleName = null,
-                LastName = "Petrov",
-                ManagerID = 12,
-                Sex = Sex.Female,
-            };
+            var serviceWorker = new ServiceWorker();
 
             var employeeEntity = new EmployeeEntity()
             {
-                ID = 0,
-                DepartmentID = 1,
-                Department = null,
-                FirstName = "Andrey",
-                MidleName = null,
-                LastName = "Petrov",
-                ManagerID = 12,
-                Sex = Sex.Female
+                Profession = Profession.Bookkeeper
             };
 
             A.CallTo(() => _mapper.Map<ServiceWorker, EmployeeEntity>(serviceWorker)).Returns(employeeEntity);
