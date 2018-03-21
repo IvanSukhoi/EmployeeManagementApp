@@ -13,7 +13,7 @@ namespace EmployeeManagement.Domain.DomainServices
             _repository = repository;
         }
 
-        public void AddEmployee(Employee employee)
+        public void RecruitEmployee(Employee employee)
         {
             _repository.Create(employee);
         }

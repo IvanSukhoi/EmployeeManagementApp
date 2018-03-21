@@ -59,38 +59,23 @@ namespace EmployeeManagement.Data.EF.Tests
             _repository.Create(developer);
             var expectedMappedValue = _fakeContext.Employees.First(x => x.ID == 1);
 
+            AssertObject(developer, expectedMappedValue);
             Assert.That(employeeEntity, Is.EqualTo(_fakeContext.Employees.Last()));
-            Assert.That(expectedMappedValue.ID, Is.EqualTo(1));
-            Assert.That(expectedMappedValue.ManagerID, Is.EqualTo(2));
-            Assert.That(expectedMappedValue.DepartmentID, Is.EqualTo(12));
-            Assert.That(expectedMappedValue.Sex, Is.EqualTo(Sex.Female));
-            Assert.That(expectedMappedValue.FirstName, Is.EqualTo("Name1"));
-            Assert.That(expectedMappedValue.MidleName, Is.Null);
-            Assert.That(expectedMappedValue.LastName, Is.EqualTo("LastName1"));
-            Assert.That(expectedMappedValue.Position, Is.EqualTo(Position.Intern));
         }
 
         [Test]
         public void Create_Manager_NewEmployeeEntityInContext()
         {
-            var manager = new Manager();
-
-            var employeeEntity = new EmployeeEntity()
+            var manager = new Manager()
             {
-                Profession = Profession.Manager
+                ID = 1,
+                ManagerID = 2,
+                DepartmentID = 12,
+                Sex = Sex.Female,
+                FirstName = "Name1",
+                MidleName = null,
+                LastName = "LastName1"
             };
-
-            A.CallTo(() => _mapper.Map<Manager, EmployeeEntity>(manager)).Returns(employeeEntity);
-
-            _repository.Create(manager);
-
-            Assert.That(employeeEntity, Is.EqualTo(_fakeContext.Employees.Last()));
-        }
-
-        [Test]
-        public void Create_ServiceWorker_NewEmployeeEntityInContext()
-        {
-            var serviceWorker = new ServiceWorker();
 
             var employeeEntity = new EmployeeEntity()
             {
@@ -101,15 +86,52 @@ namespace EmployeeManagement.Data.EF.Tests
                 FirstName = "Name1",
                 MidleName = null,
                 LastName = "LastName1",
-                Position = Position.Intern,
-                Profession = Profession.Developer
+                Profession = Profession.Manager
+            };
+
+            A.CallTo(() => _mapper.Map<Manager, EmployeeEntity>(manager)).Returns(employeeEntity);
+
+            _repository.Create(manager);
+            var expectedMappedValue = _fakeContext.Employees.First(x => x.ID == 1);
+
+            Assert.That(employeeEntity, Is.EqualTo(_fakeContext.Employees.Last()));
+            AssertObject(manager, expectedMappedValue);
+        }
+
+        [Test]
+        public void Create_ServiceWorker_NewEmployeeEntityInContext()
+        {
+            var serviceWorker = new ServiceWorker()
+            {
+                ID = 1,
+                ManagerID = 2,
+                DepartmentID = 12,
+                Sex = Sex.Female,
+                FirstName = "Name1",
+                MidleName = null,
+                LastName = "LastName1", 
+                TypeOfWorker = Profession.SystemAdministrator
+            };
+
+            var employeeEntity = new EmployeeEntity()
+            {
+                ID = 1,
+                ManagerID = 2,
+                DepartmentID = 12,
+                Sex = Sex.Female,
+                FirstName = "Name1",
+                MidleName = null,
+                LastName = "LastName1",
+                Profession = Profession.SystemAdministrator
             };
 
             A.CallTo(() => _mapper.Map<ServiceWorker, EmployeeEntity>(serviceWorker)).Returns(employeeEntity);
 
             _repository.Create(serviceWorker);
+            var expectedMappedValue = _fakeContext.Employees.First(x => x.ID == 1);
 
             Assert.That(employeeEntity, Is.EqualTo(_fakeContext.Employees.Last()));
+            AssertObject(serviceWorker, expectedMappedValue);
         }
 
         [Test]
@@ -161,6 +183,7 @@ namespace EmployeeManagement.Data.EF.Tests
 
             var getDepartment = _repository.Get(12);
 
+            AssertObject(getDepartment, employeeEntity);
             Assert.That(employee, Is.EqualTo(getDepartment));
         }
 
@@ -175,7 +198,33 @@ namespace EmployeeManagement.Data.EF.Tests
             Assert.That(testDelegate, Throws.TypeOf<ObjectDisposedException>());
         }
 
-        [Test]
-        public 
+        private void AssertObject(Employee employee, EmployeeEntity expectedMappedValue)
+        {
+            Assert.That(expectedMappedValue.ID, Is.EqualTo(employee.ID));
+            Assert.That(expectedMappedValue.ManagerID, Is.EqualTo(employee.ManagerID));
+            Assert.That(expectedMappedValue.DepartmentID, Is.EqualTo(employee.DepartmentID));
+            Assert.That(expectedMappedValue.Sex, Is.EqualTo(employee.Sex));
+            Assert.That(expectedMappedValue.FirstName, Is.EqualTo(employee.FirstName));
+            Assert.That(expectedMappedValue.MidleName, Is.EqualTo(employee.MidleName));
+            Assert.That(expectedMappedValue.LastName, Is.EqualTo(employee.LastName));
+
+            if (employee as Developer != null)
+            {
+                var developer = employee as Developer;
+                Assert.That(expectedMappedValue.Position, Is.EqualTo(developer.Position));
+                Assert.That(expectedMappedValue.Profession, Is.EqualTo(Profession.Developer));
+            }
+
+            if (employee as Manager != null)
+            {
+                Assert.That(expectedMappedValue.Profession, Is.EqualTo(Profession.Manager));
+            }
+
+            if (employee as ServiceWorker != null)
+            {
+                var serviceWorker = employee as ServiceWorker;
+                Assert.That(expectedMappedValue.Profession, Is.EqualTo(serviceWorker.TypeOfWorker));
+            }
+        }
     }
 }

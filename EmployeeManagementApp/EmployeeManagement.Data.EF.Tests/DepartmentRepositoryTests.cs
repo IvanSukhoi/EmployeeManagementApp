@@ -15,7 +15,7 @@ namespace EmployeeManagement.Data.EF.Tests
     {
         private EmployeeContext _fakeContext;
         private DepartmentRepository _repository;
-        private IMapper _mapper;      
+        private IMapper _mapper;
 
         [SetUp]
         public void SetUp()
@@ -24,20 +24,20 @@ namespace EmployeeManagement.Data.EF.Tests
             _mapper = A.Fake<IMapper>();
             _repository = new DepartmentRepository(_fakeContext, _mapper);
         }
-        
+
         [Test]
         public void Create_Department_NewDepartmentEntityInContext()
         {
-            var departmentEntity = new DepartmentEntity
+            var department = new Department
             {
-                CatalogEmployeeID = new List<int>{1, 2},
+                CatalogEmployeeID = new List<int> { 1, 2 },
                 ID = 5,
                 Name = "HR"
             };
 
-            var department = new Department
+            var departmentEntity = new DepartmentEntity
             {
-                CatalogEmployeeID = new List<int>{1, 2},
+                CatalogEmployeeID = new List<int> { 1, 2 },
                 ID = 5,
                 Name = "HR"
             };
@@ -47,7 +47,6 @@ namespace EmployeeManagement.Data.EF.Tests
             _repository.Create(department);
             var expectedMappedValue = _fakeContext.Departments.First(x => x.ID == 5);
 
-            Assert.That(departmentEntity, Is.EqualTo(_fakeContext.Departments.Last()));
             Assert.That(expectedMappedValue.ID, Is.EqualTo(5));
             Assert.That(expectedMappedValue.Name, Is.EqualTo("HR"));
             Assert.That(expectedMappedValue.CatalogEmployeeID, Is.EquivalentTo(new[] { 1, 2 }));
@@ -81,27 +80,26 @@ namespace EmployeeManagement.Data.EF.Tests
 
             var departmentEntity = new DepartmentEntity
             {
-                CatalogEmployeeID = new List<int> {10, 12},
+                CatalogEmployeeID = new List<int> { 10, 12 },
                 ID = 15,
                 Name = "HR"
             };
 
             var department = new Department
             {
-                CatalogEmployeeID = new List<int> {10, 12},
+                CatalogEmployeeID = new List<int> { 10, 12 },
                 ID = 15,
                 Name = "HR"
             };
 
+            A.CallTo(() => _mapper.Map<DepartmentEntity, Department>(departmentEntity)).Returns(department);
+
             listDepartmentEntities.Add(departmentEntity);
             _fakeContext.Departments.AddRange(listDepartmentEntities);
 
-            A.CallTo(() => _mapper.Map<DepartmentEntity, Department>(departmentEntity)).Returns(department);
-
-            Department getDepartment = _repository.Get(10);
+            var getDepartment = _repository.Get(15);
             var expectedMappedValue = _fakeContext.Departments.First(x => x.ID == 15);
 
-            Assert.That(department, Is.EqualTo(getDepartment));
             Assert.That(expectedMappedValue.ID, Is.EqualTo(15));
             Assert.That(expectedMappedValue.Name, Is.EqualTo("HR"));
             Assert.That(expectedMappedValue.CatalogEmployeeID, Is.EquivalentTo(new[] { 10, 12 }));

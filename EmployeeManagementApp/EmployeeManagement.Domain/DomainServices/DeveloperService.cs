@@ -6,16 +6,16 @@ namespace EmployeeManagement.Domain.DomainServices
 {
     public class DeveloperService : IDeveloperService
     {
-        private readonly IEmployeeRepository _repository;
+        private readonly IEmployeeRepository _employeeRepository;
 
         public DeveloperService(IEmployeeRepository repository)
         {
-            _repository = repository;
+            _employeeRepository = repository;
         }
 
         public void AddTask(int employeeId, Task task)
         {
-            var employee = _repository.Get(employeeId);
+            var employee = _employeeRepository.Get(employeeId);
             if (employee as Developer != null)
             {
                 var developer = employee as Developer;

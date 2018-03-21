@@ -6,16 +6,16 @@ namespace EmployeeManagement.Domain.DomainServices
 {
     public class WorkerService : IWorkerService
     {
-        private readonly IEmployeeRepository _repository;
+        private readonly IEmployeeRepository _employeeRepository;
 
         public WorkerService(IEmployeeRepository repository)
         {
-            _repository = repository;
+            _employeeRepository = repository;
         }
 
         public void ChangeProfession(int employeeId, Profession profession)
         {
-            var employee = _repository.Get(employeeId);
+            var employee = _employeeRepository.Get(employeeId);
 
             if (employee as ServiceWorker != null)
             {
