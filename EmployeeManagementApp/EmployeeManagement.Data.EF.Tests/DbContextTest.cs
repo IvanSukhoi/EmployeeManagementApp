@@ -1,6 +1,7 @@
 ﻿using EmployeeManagement.Data.EF.Tests;
 using FakeItEasy;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Reflection;
 
@@ -35,7 +36,7 @@ public class DbContextTest
 
 public static class DbSetExtentions
 {
-    public static void AddRange<T>(this IDbSet<T> dbset, params T[] range) where T : class
+    public static void AddRange<T>(this IDbSet<T> dbset, List<T> range) where T : class
     {
         foreach (var item in range)
         {

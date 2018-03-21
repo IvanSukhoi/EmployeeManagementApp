@@ -10,6 +10,6 @@ namespace EmployeeManagement.Data.EF.Entities
 
         [Required]
         public string Name { get; set; }
-        public virtual List<int> EmployeeID { get; set; }
+        public virtual List<int> CatalogEmployeeID { get; set; }
     }
 }

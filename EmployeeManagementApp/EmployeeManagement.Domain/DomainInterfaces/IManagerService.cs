@@ -1,8 +1,11 @@
-﻿namespace EmployeeManagement.Domain.DomainInterfaces
+﻿using EmployeeManagement.Domain.Models;
+
+namespace EmployeeManagement.Domain.DomainInterfaces
 {
     public interface IManagerService
     {
-        void DismissEmployee();
-        void AddEmployee();
+        void FireEmployee(int employeeId);
+        void RecruitEmployee(Employee employee);
+        void Promote(int employeeId, Position position);
     }
 }
