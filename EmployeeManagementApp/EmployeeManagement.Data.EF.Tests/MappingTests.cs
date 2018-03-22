@@ -98,7 +98,7 @@ namespace EmployeeManagement.Data.EF.Tests
             var employee = _mapper.Map<EmployeeEntity, ServiceWorker>(employeeEntity);
 
             AssertPropertyValue(employee, employeeEntity);
-            Assert.That(employee.TypeOfWorker, Is.EqualTo(employee.TypeOfWorker));
+            Assert.That(employee.TypeOfWorker, Is.EqualTo(employeeEntity.Profession));
         }
 
         [Test]

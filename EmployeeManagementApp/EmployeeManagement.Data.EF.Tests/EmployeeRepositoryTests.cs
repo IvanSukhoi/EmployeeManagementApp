@@ -61,6 +61,8 @@ namespace EmployeeManagement.Data.EF.Tests
 
             AssertPropertyValue(developer, expectedMappedValue);
             Assert.That(employeeEntity, Is.EqualTo(_fakeContext.Employees.Last()));
+            Assert.That(expectedMappedValue.Position, Is.EqualTo(developer.Position));
+            Assert.That(expectedMappedValue.Profession, Is.EqualTo(Profession.Developer));
         }
 
         [Test]
@@ -96,6 +98,7 @@ namespace EmployeeManagement.Data.EF.Tests
 
             Assert.That(employeeEntity, Is.EqualTo(_fakeContext.Employees.Last()));
             AssertPropertyValue(manager, expectedMappedValue);
+            Assert.That(expectedMappedValue.Profession, Is.EqualTo(Profession.Manager));
         }
 
         [Test]
@@ -132,6 +135,7 @@ namespace EmployeeManagement.Data.EF.Tests
 
             Assert.That(employeeEntity, Is.EqualTo(_fakeContext.Employees.Last()));
             AssertPropertyValue(serviceWorker, expectedMappedValue);
+            Assert.That(expectedMappedValue.Profession, Is.EqualTo(serviceWorker.TypeOfWorker));
         }
 
         [Test]
@@ -207,24 +211,6 @@ namespace EmployeeManagement.Data.EF.Tests
             Assert.That(expectedMappedValue.FirstName, Is.EqualTo(employee.FirstName));
             Assert.That(expectedMappedValue.MidleName, Is.EqualTo(employee.MidleName));
             Assert.That(expectedMappedValue.LastName, Is.EqualTo(employee.LastName));
-
-            if (employee as Developer != null)
-            {
-                var developer = employee as Developer;
-                Assert.That(expectedMappedValue.Position, Is.EqualTo(developer.Position));
-                Assert.That(expectedMappedValue.Profession, Is.EqualTo(Profession.Developer));
-            }
-
-            if (employee as Manager != null)
-            {
-                Assert.That(expectedMappedValue.Profession, Is.EqualTo(Profession.Manager));
-            }
-
-            if (employee as ServiceWorker != null)
-            {
-                var serviceWorker = employee as ServiceWorker;
-                Assert.That(expectedMappedValue.Profession, Is.EqualTo(serviceWorker.TypeOfWorker));
-            }
         }
     }
 }
