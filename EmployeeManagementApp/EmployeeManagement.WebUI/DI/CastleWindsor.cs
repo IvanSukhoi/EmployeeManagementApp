@@ -4,10 +4,12 @@ using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using EmployeeManagement.Data.EF.DAL;
+using EmployeeManagement.Data.EF.Mapp;
 using EmployeeManagement.Data.EF.Repositories;
 using EmployeeManagement.Domain.DataInterfaces;
 using EmployeeManagement.Domain.DomainInterfaces;
 using EmployeeManagement.Domain.DomainServices;
+using EmployeeManagement.WebUI.Mappings;
 using System.Web.Mvc;
 
 namespace EmployeeManagement.WebUI.DI
@@ -31,7 +33,17 @@ namespace EmployeeManagement.WebUI.DI
 
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<IMapper>().ImplementedBy<Mapper>().LifeStyle.PerWebRequest);
+            container.Register(
+                Component.For<IMapper>().UsingFactoryMethod(x =>
+                {
+                    var mapper = new MapperConfiguration(c =>
+                   {
+                       c.AddProfile(new DataMappingProfile());
+                       c.AddProfile(new UIMappingProfile());
+                   });
+                    return mapper.CreateMapper();
+                }));
+
             container.Register(Component.For<EmployeeContext>().LifeStyle.PerWebRequest);
             container.Register(Component.For<IEmployeeRepository>().ImplementedBy<EmployeeRepository>().LifeStyle.PerWebRequest);
             container.Register(Component.For<IDepartmentRepository>().ImplementedBy<DepartmentRepository>().LifeStyle.PerWebRequest);

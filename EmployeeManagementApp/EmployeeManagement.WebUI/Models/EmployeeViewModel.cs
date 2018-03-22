@@ -3,7 +3,7 @@
     public class EmployeeViewModel
     {
         public int? ManagerID { get; set; }
-        public int EmployeeID { get; set; }
+        public int ID { get; set; }
         public int DepartmentID { get; set; }
         public string FirstName { get; set; }
         public string MidleName { get; set; }

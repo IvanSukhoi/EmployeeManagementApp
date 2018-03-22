@@ -14,7 +14,6 @@ namespace EmployeeManagement.WebUI
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             CastleWindsor.Setup();
-            AutoMapperConfiguration.Configure();
         }
    
     protected void Application_End()

@@ -59,7 +59,7 @@ namespace EmployeeManagement.Data.EF.Tests
             _repository.Create(developer);
             var expectedMappedValue = _fakeContext.Employees.First(x => x.ID == 1);
 
-            AssertObject(developer, expectedMappedValue);
+            AssertPropertyValue(developer, expectedMappedValue);
             Assert.That(employeeEntity, Is.EqualTo(_fakeContext.Employees.Last()));
         }
 
@@ -95,7 +95,7 @@ namespace EmployeeManagement.Data.EF.Tests
             var expectedMappedValue = _fakeContext.Employees.First(x => x.ID == 1);
 
             Assert.That(employeeEntity, Is.EqualTo(_fakeContext.Employees.Last()));
-            AssertObject(manager, expectedMappedValue);
+            AssertPropertyValue(manager, expectedMappedValue);
         }
 
         [Test]
@@ -131,7 +131,7 @@ namespace EmployeeManagement.Data.EF.Tests
             var expectedMappedValue = _fakeContext.Employees.First(x => x.ID == 1);
 
             Assert.That(employeeEntity, Is.EqualTo(_fakeContext.Employees.Last()));
-            AssertObject(serviceWorker, expectedMappedValue);
+            AssertPropertyValue(serviceWorker, expectedMappedValue);
         }
 
         [Test]
@@ -183,7 +183,7 @@ namespace EmployeeManagement.Data.EF.Tests
 
             var getDepartment = _repository.Get(12);
 
-            AssertObject(getDepartment, employeeEntity);
+            AssertPropertyValue(getDepartment, employeeEntity);
             Assert.That(employee, Is.EqualTo(getDepartment));
         }
 
@@ -198,7 +198,7 @@ namespace EmployeeManagement.Data.EF.Tests
             Assert.That(testDelegate, Throws.TypeOf<ObjectDisposedException>());
         }
 
-        private void AssertObject(Employee employee, EmployeeEntity expectedMappedValue)
+        private void AssertPropertyValue(Employee employee, EmployeeEntity expectedMappedValue)
         {
             Assert.That(expectedMappedValue.ID, Is.EqualTo(employee.ID));
             Assert.That(expectedMappedValue.ManagerID, Is.EqualTo(employee.ManagerID));

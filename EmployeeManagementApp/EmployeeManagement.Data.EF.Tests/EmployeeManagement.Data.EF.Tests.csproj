@@ -70,6 +70,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MappingTests.cs" />
     <Compile Include="DbContextTest.cs" />
     <Compile Include="DepartmentRepositoryTests.cs" />
     <Compile Include="EmployeeRepositoryTests.cs" />
