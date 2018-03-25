@@ -121,7 +121,7 @@ namespace EmployeeManagement.Data.EF.Tests
 
             AssertPropertyValue(employee, employeeEntity);
             Assert.That(employeeEntity.Profession, Is.EqualTo(Profession.Manager));
-            Assert.IsNull(employee.Employees);
+            Assert.IsNull(employee.EmployeeID);
         }
 
         [Test]
@@ -164,7 +164,7 @@ namespace EmployeeManagement.Data.EF.Tests
 
             AssertPropertyValue(manager, employeeEntity);
             Assert.That(employeeEntity.Profession, Is.EqualTo(Profession.Manager));
-            Assert.IsNull(manager.Employees);
+            Assert.IsNull(manager.EmployeeID);
         }
 
         [Test]

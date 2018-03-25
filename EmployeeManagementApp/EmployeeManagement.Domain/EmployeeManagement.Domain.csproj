@@ -42,7 +42,9 @@
   <ItemGroup>
     <Compile Include="DataInterfaces\IDepartmentRepository.cs" />
     <Compile Include="DataInterfaces\IEmployeeRepository.cs" />
+    <Compile Include="DomainInterfaces\IDepartmentService.cs" />
     <Compile Include="DomainInterfaces\IEmployeeService.cs" />
+    <Compile Include="DomainServices\DepartmentService.cs" />
     <Compile Include="DomainServices\WorkerService.cs" />
     <Compile Include="DomainServices\DeveloperService.cs" />
     <Compile Include="DomainServices\EmployeeService.cs" />

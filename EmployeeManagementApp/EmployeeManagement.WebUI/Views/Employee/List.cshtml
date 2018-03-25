@@ -1,19 +1,32 @@
-﻿@model IEnumerable<EmployeeManagement.WebUI.Models.EmployeeViewModel>
+﻿@model EmployeeManagement.WebUI.Models.EmployeeListModel
 
 @{
     ViewBag.Title = "List";
 }
 
-@foreach (var p in Model)
+@foreach (var employee in Model.Employees)
 {
-<div class="item">
-    <h3>@p.FirstName @p.LastName</h3>
-    <h3>@p.ManagerID</h3>
-    <h3>@p.DepartmentName</h3>
-    <h3>@p.ID</h3>
-    <h3>@p.Sex</h3>
-    <h3>@p.DepartmentID</h3>
-</div>
+    if (employee as EmployeeManagement.WebUI.Models.DeveloperModel != null)
+    {
+        var developer = employee as EmployeeManagement.WebUI.Models.DeveloperModel;
+        Html.RenderPartial("DeveloperSummary", developer);
+    }
+
+    if (employee as EmployeeManagement.WebUI.Models.ManagerModel != null)
+    {
+        var manager = employee as EmployeeManagement.WebUI.Models.ManagerModel;
+        Html.RenderPartial("ManagerSummary", manager);
+    }
+
+    if (employee as EmployeeManagement.WebUI.Models.ServiceWorkerModel != null)
+    {
+        var serviceWorker = employee as EmployeeManagement.WebUI.Models.ServiceWorkerModel;
+        Html.RenderPartial("ServiceWorkerSummary", serviceWorker);
+    }
 }
+<div class="pager">
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x, category = Model.CurrentCategory }))
+</div>
+
 
 

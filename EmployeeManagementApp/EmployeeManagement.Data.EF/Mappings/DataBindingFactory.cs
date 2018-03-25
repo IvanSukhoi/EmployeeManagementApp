@@ -43,14 +43,14 @@ namespace EmployeeManagement.Data.EF.Entities
         {
             EmployeeEntity employeeEntity = null;
             
-            if (employee is Developer)
+            if (employee as Developer != null)
             {                     
                 var developer = employee as Developer;
                 employeeEntity = _mapper.Map<Developer, EmployeeEntity>(developer);
                 return employeeEntity;
             }
 
-            if (employee is Manager)
+            if (employee as Manager != null)
             {
                 var manager = employee as Manager;
                 employeeEntity = _mapper.Map<Manager, EmployeeEntity>(manager);

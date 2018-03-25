@@ -20,7 +20,7 @@ namespace EmployeeManagement.Data.EF.Mapp
 
             CreateMap<EmployeeEntity, Manager>()
                     .ForMember(s => s.Department, opt => opt.MapFrom(c => c.Department))
-                    .ForMember(s => s.Employees, opt => opt.Ignore());
+                    .ForMember(s => s.EmployeeID, opt => opt.Ignore());
 
             CreateMap<EmployeeEntity, ServiceWorker>()
                     .ForMember(s => s.Department, opt => opt.MapFrom(c => c.Department))

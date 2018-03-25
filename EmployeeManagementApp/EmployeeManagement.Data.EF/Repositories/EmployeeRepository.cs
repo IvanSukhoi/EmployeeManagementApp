@@ -34,6 +34,15 @@ namespace EmployeeManagement.Data.EF.Repositories
             if (employeeEntity != null)
             {
                 var employee = _factotory.GetEmployee<Employee>(employeeEntity);
+
+                if (employee as Manager != null)
+                {
+                    var manager = employee as Manager;
+                    manager.EmployeeID = _dbContext.Employees.Where(x => x.ID == manager.ID).Select(x => x.ID).ToList();
+
+                    return manager;
+                }
+
                 return employee;
             }
             else
@@ -45,12 +54,25 @@ namespace EmployeeManagement.Data.EF.Repositories
         public List<Employee> GetAll()
         {
             var result = new List<Employee>();
-            var employees = _dbContext.Employees.ToList();
+            var employeeEntities = _dbContext.Employees.ToList();
 
-            foreach (var i in employees)
+            foreach (var employeeEntity in employeeEntities)
             {
-                result.Add(_factotory.GetEmployee<Employee>(i));
+                var employee = _factotory.GetEmployee<Employee>(employeeEntity);
+
+                if (employee as Manager != null)
+                {
+                    var manager = employee as Manager;
+                    manager.EmployeeID = _dbContext.Employees.Where(x => x.ID == manager.ID).Select(x => x.ID).ToList();
+
+                    result.Add(manager);
+                }
+                else
+                {
+                    result.Add(employee);
+                }
             }
+
             return result;
         }
 

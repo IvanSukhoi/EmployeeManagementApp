@@ -22,3 +22,105 @@ select,
 textarea {
     max-width: 280px;
 }
+
+BODY {
+    font-family: Cambria, Georgia, "Times New Roman";
+    margin: 0;
+}
+
+DIV#header DIV.title, DIV.item H3, DIV.item H4, DIV.pager A {
+    font: bold 1em "Arial Narrow", "Franklin Gothic Medium", Arial;
+}
+
+DIV#header {
+    background-color: green;
+    border-bottom: 2px solid green;
+    color: white;
+}
+
+    DIV#header DIV.title {
+        font-size: 2em;
+        padding: .6em;
+    }
+
+DIV#content {
+    border-left: 2px solid green;
+    margin-left: 9em;
+    padding: 1em;
+    background-color: white
+}
+
+DIV#categories {
+    float: left;
+    width: 8em;
+    padding: .3em;
+}
+
+DIV.item {
+    border-top: 2px dotted green;
+    padding-top: .7em;
+    margin-bottom: .7em;
+    color: black;
+    background-color: white
+}
+
+    DIV.item:first-child {
+        border-top: medium;
+        padding-top: 0;
+    }
+
+    DIV.item H3 {
+        font-size: 1.3em;
+        margin: 0 0 .25em 0;
+    }
+
+    DIV.item H4 {
+        font-size: 1.1em;
+        margin: .4em 0 0 0;
+    }
+
+DIV.pager {
+    text-align: right;
+    border-top: 2px solid darkgreen;
+    padding: .5em 0 0 0;
+    margin-top: 1em;
+}
+
+    DIV.pager A {
+        font-size: 1.1em;
+        color: darkgreen;
+        text-decoration: none;
+        padding: 0 .4em 0 .4em;
+    }
+
+        DIV.pager A:hover {
+            color: white;
+            background-color: Silver;
+        }
+
+        DIV.pager A.selected {
+            background-color: darkgreen;
+            color: white;
+        }
+
+DIV#categories A {
+    font: bold 1.1em "Arial Narrow","Franklin Gothic Medium",Arial;
+    display: block;
+    text-decoration: none;
+    padding: .6em;
+    color: Black;
+    border-bottom: 1px solid green;
+}
+
+    DIV#categories A.selected {
+        background-color: green;
+        color: White;
+    }
+
+    DIV#categories A:hover {
+        background-color: green;
+    }
+
+    DIV#categories A.selected:hover {
+        background-color: green;
+    }

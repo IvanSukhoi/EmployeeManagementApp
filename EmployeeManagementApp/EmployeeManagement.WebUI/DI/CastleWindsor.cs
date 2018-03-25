@@ -44,6 +44,7 @@ namespace EmployeeManagement.WebUI.DI
                     return mapper.CreateMapper();
                 }));
 
+            container.Register(Component.For<IDepartmentService>().ImplementedBy<DepartmentService>().LifeStyle.PerWebRequest);
             container.Register(Component.For<EmployeeContext>().LifeStyle.PerWebRequest);
             container.Register(Component.For<IEmployeeRepository>().ImplementedBy<EmployeeRepository>().LifeStyle.PerWebRequest);
             container.Register(Component.For<IDepartmentRepository>().ImplementedBy<DepartmentRepository>().LifeStyle.PerWebRequest);

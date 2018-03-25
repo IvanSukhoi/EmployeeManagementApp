@@ -1,0 +1,13 @@
+﻿@model EmployeeManagement.WebUI.Models.ManagerModel
+
+<div class="item">
+    <h2>Name: @Model.FirstName @Model.LastName</h2>
+    <h3>ID: @Model.ID</h3>
+    @if (Model.ManagerID != null)
+    {
+        <h3>ManagerID: @Model.ManagerID</h3>
+    }
+    <h3>DepartmnetID: @Model.DepartmentID</h3>
+    <h3>Sex: @Model.Sex</h3>
+    <h3>Profession: Manager</h3>
+</div>

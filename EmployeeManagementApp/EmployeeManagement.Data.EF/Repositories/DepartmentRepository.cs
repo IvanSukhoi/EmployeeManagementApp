@@ -28,6 +28,17 @@ namespace EmployeeManagement.Data.EF.Repositories
 
         public List<Department> GetAll()
         {
+            foreach (var departmentEntity in _dbContext.Departments.ToList())
+            {
+                var employeeEntities = _dbContext.Employees.Where(x => x.DepartmentID == departmentEntity.ID).ToList();
+                departmentEntity.CatalogEmployeeID = new List<int>();
+
+                foreach (var employee in employeeEntities)
+                {
+                    departmentEntity.CatalogEmployeeID.Add(employee.ID);
+                }
+            }
+
             var departments = _mapper.Map<List<DepartmentEntity>, List<Department>>(_dbContext.Departments.ToList());
             return departments;
         }
@@ -48,8 +59,15 @@ namespace EmployeeManagement.Data.EF.Repositories
         public Department Get(int departmentId)
         {
             DepartmentEntity departmentEntity = _dbContext.Departments.FirstOrDefault(x => x.ID == departmentId);
+
             if (departmentEntity != null)
             {
+                var employees = _dbContext.Employees.Where(x => x.DepartmentID == departmentEntity.ID);
+                foreach (var employee in employees)
+                {
+                    departmentEntity.CatalogEmployeeID.Add(employee.ID);
+                }
+
                 var department = _mapper.Map<DepartmentEntity, Department>(departmentEntity);
                 return department;
             }
