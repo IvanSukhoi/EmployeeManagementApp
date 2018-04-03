@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EmployeeManagement.Data.EF.DAL;
 using EmployeeManagement.Data.EF.Entities;
+using EmployeeManagement.Data.EF.Mappings;
 using EmployeeManagement.Domain.DataInterfaces;
 using EmployeeManagement.Domain.Models;
 using System;
@@ -12,19 +13,17 @@ namespace EmployeeManagement.Data.EF.Repositories
     public class EmployeeRepository : IEmployeeRepository
     {
         private readonly EmployeeContext _dbContext;
-        private readonly MapperFactory _factotory;
-        private readonly IMapper _mapper;
+        private readonly IMapperFactory<Employee> _factory;
 
-        public EmployeeRepository(EmployeeContext dbContext, IMapper mapper)
+        public EmployeeRepository(EmployeeContext dbContext, IMapperFactory<Employee> factory)
         {
             _dbContext = dbContext;
-            _mapper = mapper;
-            _factotory = new MapperFactory(_mapper);
+            _factory = factory;
         }
 
         public void Create(Employee employee)
         {
-            var employeeEntity = _factotory.GetEmployeeEF(employee);
+            var employeeEntity = _factory.GetEmployeeEF(employee);
             _dbContext.Employees.Add(employeeEntity);
         }
 
@@ -33,7 +32,7 @@ namespace EmployeeManagement.Data.EF.Repositories
             var employeeEntity = _dbContext.Employees.FirstOrDefault(x => x.ID == emoloyeeId);
             if (employeeEntity != null)
             {
-                var employee = _factotory.GetEmployee<Employee>(employeeEntity);
+                var employee = _factory.GetEmployee<Employee>(employeeEntity);
 
                 if (employee as Manager != null)
                 {
@@ -58,12 +57,12 @@ namespace EmployeeManagement.Data.EF.Repositories
 
             foreach (var employeeEntity in employeeEntities)
             {
-                var employee = _factotory.GetEmployee<Employee>(employeeEntity);
+                var employee = _factory.GetEmployee<Employee>(employeeEntity);
 
                 if (employee as Manager != null)
                 {
                     var manager = employee as Manager;
-                    manager.EmployeeID = _dbContext.Employees.Where(x => x.ID == manager.ID).Select(x => x.ID).ToList();
+                    manager.EmployeeID = _dbContext.Employees.Where(x => x.ManagerID == manager.ID).Select(x => x.ID).ToList();
 
                     result.Add(manager);
                 }

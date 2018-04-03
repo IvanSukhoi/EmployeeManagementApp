@@ -1,0 +1,32 @@
+﻿@using EmployeeManagement.WebUI.Models;
+@model IEnumerable<EmployeeModel>
+
+@{
+    ViewBag.Title = "Admin: All Products";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<h1>All Products</h1>
+<table class="Grid">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th class="NumericCol">Department</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ID</td>
+            <td>@Html.ActionLink(item.FirstName + item.LastName, "Edit", new { id = item.ID })</td>
+            <td class="NumericCol">@item.DepartmentName</td>
+            <td>
+                @using (Html.BeginForm("Delete", "Admin"))
+                {
+                    @Html.Hidden("ProductID", item.ID)
+                    <input type="submit" value="Delete" />
+                }
+            </td>
+        </tr>
+    }
+</table>
+<p>@Html.ActionLink("Add a new employee", "Create")</p>

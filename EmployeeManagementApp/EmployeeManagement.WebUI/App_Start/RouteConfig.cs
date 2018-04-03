@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.UI.WebControls;
 
 namespace EmployeeManagement.WebUI
 {
@@ -8,6 +9,14 @@ namespace EmployeeManagement.WebUI
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            routes.MapRoute(null, "Admin/Edit/{id}",
+                new
+                {
+                    controller = "Admin",
+                    action = "Edit",
+                    id = UrlParameter.Optional
+                });
 
             routes.MapRoute(null,
                 "",
@@ -25,6 +34,7 @@ namespace EmployeeManagement.WebUI
                 new { controller = "Employee", action = "List", category = (string)null },
                 new { page = @"\d+" }
             );
+
 
             routes.MapRoute(null,
                 "{category}",

@@ -5,6 +5,6 @@ namespace EmployeeManagement.WebUI.Models
 {
     public class ManagerModel : EmployeeModel
     {
-        public List<EmployeeModel> Employees { get; set; }
+        public List<int> Employees { get; set; }
     }
 }

@@ -15,11 +15,13 @@ namespace EmployeeManagement.WebUI.Mappings
             CreateMap<Department, DepartmentModel>();
             CreateMap<Developer, DeveloperModel>();
             CreateMap<ServiceWorker, ServiceWorkerModel>();
-            CreateMap<Manager, ManagerModel>();
+            CreateMap<Manager, ManagerModel>()
+                .ForMember(s => s.Employees, opt => opt.MapFrom(c => c.EmployeeID));
 
             CreateMap<DepartmentModel, Department>();
             CreateMap<DeveloperModel, Developer>();
-            CreateMap<ManagerModel, Manager>();
+            CreateMap<ManagerModel, Manager>()
+                .ForMember(s => s.EmployeeID, opt => opt.MapFrom(c => c.Employees));
         }
     }
 }

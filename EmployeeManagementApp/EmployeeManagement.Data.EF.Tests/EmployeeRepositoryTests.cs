@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EmployeeManagement.Data.EF.DAL;
 using EmployeeManagement.Data.EF.Entities;
+using EmployeeManagement.Data.EF.Mappings;
 using EmployeeManagement.Data.EF.Repositories;
 using EmployeeManagement.Domain.Models;
 using FakeItEasy;
@@ -16,6 +17,7 @@ namespace EmployeeManagement.Data.EF.Tests
     {
         private EmployeeContext _fakeContext;
         private EmployeeRepository _repository;
+        private IMapperFactory<Employee> _factory;
         private IMapper _mapper;
 
         [SetUp]
@@ -23,7 +25,8 @@ namespace EmployeeManagement.Data.EF.Tests
         {
             _fakeContext = DbContextTest.CreateDbContext<EmployeeContext>();
             _mapper = A.Fake<IMapper>();
-            _repository = new EmployeeRepository(_fakeContext, _mapper);
+            _factory = new MapperFactory(_mapper);
+            _repository = new EmployeeRepository(_fakeContext, _factory);
         }
 
         [Test]

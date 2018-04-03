@@ -26,6 +26,7 @@ namespace EmployeeManagement.WebUI.DI
             {
                 throw new HttpException(404, string.Format("The controller for path '{0}' could not be found.", requestContext.HttpContext.Request.Path));
             }
+
             return (IController)_kernel.Resolve(controllerType);
         }
     }

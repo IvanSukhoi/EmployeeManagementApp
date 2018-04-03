@@ -33,9 +33,9 @@ DIV#header DIV.title, DIV.item H3, DIV.item H4, DIV.pager A {
 }
 
 DIV#header {
-    background-color: green;
-    border-bottom: 2px solid green;
-    color: white;
+    background-color: #444;
+    border-bottom: 2px solid #111;
+    color: White;
 }
 
     DIV#header DIV.title {
@@ -44,10 +44,9 @@ DIV#header {
     }
 
 DIV#content {
-    border-left: 2px solid green;
+    border-left: 2px solid gray;
     margin-left: 9em;
     padding: 1em;
-    background-color: white
 }
 
 DIV#categories {
@@ -57,15 +56,13 @@ DIV#categories {
 }
 
 DIV.item {
-    border-top: 2px dotted green;
+    border-top: 1px dotted gray;
     padding-top: .7em;
     margin-bottom: .7em;
-    color: black;
-    background-color: white
 }
 
     DIV.item:first-child {
-        border-top: medium;
+        border-top: none;
         padding-top: 0;
     }
 
@@ -81,26 +78,25 @@ DIV.item {
 
 DIV.pager {
     text-align: right;
-    border-top: 2px solid darkgreen;
+    border-top: 2px solid silver;
     padding: .5em 0 0 0;
     margin-top: 1em;
 }
 
     DIV.pager A {
         font-size: 1.1em;
-        color: darkgreen;
+        color: #666;
         text-decoration: none;
         padding: 0 .4em 0 .4em;
     }
 
         DIV.pager A:hover {
-            color: white;
             background-color: Silver;
         }
 
         DIV.pager A.selected {
-            background-color: darkgreen;
-            color: white;
+            background-color: #353535;
+            color: White;
         }
 
 DIV#categories A {
@@ -109,18 +105,18 @@ DIV#categories A {
     text-decoration: none;
     padding: .6em;
     color: Black;
-    border-bottom: 1px solid green;
+    border-bottom: 1px solid silver;
 }
 
     DIV#categories A.selected {
-        background-color: green;
+        background-color: #666;
         color: White;
     }
 
     DIV#categories A:hover {
-        background-color: green;
+        background-color: #CCC;
     }
 
     DIV#categories A.selected:hover {
-        background-color: green;
+        background-color: #666;
     }

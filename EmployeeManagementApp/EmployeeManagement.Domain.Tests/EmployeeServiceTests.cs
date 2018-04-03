@@ -99,7 +99,7 @@ namespace EmployeeManagement.Domain.Tests
                     MidleName = null,
                     LastName = "LastName1",
                     ManagerID = 1,
-                    Position = Position.Midle,
+                    Position = Position.Middle,
                     Department  = null
                 },
 

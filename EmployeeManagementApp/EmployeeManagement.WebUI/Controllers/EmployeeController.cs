@@ -11,15 +11,13 @@ namespace EmployeeManagement.WebUI.Controllers
     public class EmployeeController : Controller
     {
         private readonly IEmployeeService _employeeService;
-        private readonly IMapper _mapper;
-        private readonly MapperFactory _mapperFactory;
+        private readonly IMapperFactory<EmployeeModel> _mapperFactory;
         public int PageSize = 4;
 
-        public EmployeeController(IEmployeeService employeeService, IMapper mapper)
+        public EmployeeController(IEmployeeService employeeService, IMapperFactory<EmployeeModel> mapperFactory)
         {
-            _mapper = mapper;
             _employeeService = employeeService;
-            _mapperFactory = new MapperFactory(_mapper);
+            _mapperFactory = mapperFactory;
         }
 
         public ViewResult List(string category, int page = 1)

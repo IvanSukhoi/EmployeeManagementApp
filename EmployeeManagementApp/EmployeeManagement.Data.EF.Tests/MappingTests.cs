@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using EmployeeManagement.Data.EF.Entities;
-using EmployeeManagement.Data.EF.Mapp;
+using EmployeeManagement.Data.EF.Mappings;
 using EmployeeManagement.Domain.Models;
 using EmployeeManagement.WebUI.Mappings;
 using NUnit.Framework;

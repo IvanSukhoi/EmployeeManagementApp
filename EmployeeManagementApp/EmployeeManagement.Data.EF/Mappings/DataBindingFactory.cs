@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
+using EmployeeManagement.Data.EF.Entities;
 using EmployeeManagement.Domain.Models;
 
-namespace EmployeeManagement.Data.EF.Entities
+namespace EmployeeManagement.Data.EF.Mappings
 {
     public interface IMapperFactory<T>
     {
