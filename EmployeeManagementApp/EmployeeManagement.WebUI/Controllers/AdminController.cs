@@ -3,7 +3,6 @@ using EmployeeManagement.Domain.DomainInterfaces;
 using EmployeeManagement.Domain.Models;
 using EmployeeManagement.WebUI.Mappings;
 using EmployeeManagement.WebUI.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -58,18 +57,6 @@ namespace EmployeeManagement.WebUI.Controllers
             BuildEmployeeModel(serviceWorkerModel);
 
             return View(serviceWorkerModel);
-        }
-
-        private void BuildEmployeeModel(EmployeeModel employeeModel)
-        {
-            employeeModel.ActionMethod = ActionMethod.Edit;
-            employeeModel.DepartmentModelList = _departmentService.GetAll().Select(x => _mapper.Map<Department, DepartmentModel>(x)).ToList();
-        }
-
-        private void SaveEmployeeModel(EmployeeModel employeeModel)
-        {
-            var employee = _mapperFactory.MappEmployeeModelToEmployee(employeeModel);
-            _employeeService.SaveEmployee(employee);
         }
 
         [HttpPost]
@@ -130,6 +117,18 @@ namespace EmployeeManagement.WebUI.Controllers
         public ViewResult CreateServiceWorker()
         {
             return View("EditServiceWorker", new ServiceWorkerModel());
+        }
+
+        private void BuildEmployeeModel(EmployeeModel employeeModel)
+        {
+            employeeModel.ActionMethod = ActionMethod.Edit;
+            employeeModel.DepartmentModelList = _departmentService.GetAll().Select(x => _mapper.Map<Department, DepartmentModel>(x)).ToList();
+        }
+
+        private void SaveEmployeeModel(EmployeeModel employeeModel)
+        {
+            var employee = _mapperFactory.MappEmployeeModelToEmployee(employeeModel);
+            _employeeService.SaveEmployee(employee);
         }
     }
 }

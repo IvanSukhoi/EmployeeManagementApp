@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Fluent_Validtion.Models.Validators;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
 namespace EmployeeManagement.WebUI.Models
 {
-
+    [FluentValidation.Attributes.Validator(typeof(RegisterModelValidator))]
     public abstract class EmployeeModel
     {
         public string FirstName { get; set; }
