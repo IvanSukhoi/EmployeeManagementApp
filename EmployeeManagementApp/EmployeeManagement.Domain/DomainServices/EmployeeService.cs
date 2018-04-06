@@ -39,5 +39,10 @@ namespace EmployeeManagement.Domain.DomainServices
         {
             return _employeeRepository.GetAll();
         }
+
+        public void SaveEmployee(Employee employee)
+        {
+            _employeeRepository.SaveEmployee(employee);
+        }
     }
 }

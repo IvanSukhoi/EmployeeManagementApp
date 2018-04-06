@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAL\EmployeeContext.cs" />
-    <Compile Include="Mappings\DataBindingFactory.cs" />
+    <Compile Include="Mappings\EmployeeFactory.cs" />
     <Compile Include="Entities\DepartmentEntity.cs" />
     <Compile Include="Entities\EmployeeEntity.cs" />
     <Compile Include="Migrations\201803051242291__UpdateModels.cs" />

@@ -52,8 +52,8 @@ namespace EmployeeManagement.WebUI.DI
             container.Register(Component.For<IDepartmentRepository>().ImplementedBy<DepartmentRepository>().LifeStyle.PerWebRequest);
             container.Register(Component.For<IManagerService>().ImplementedBy<ManagerService>().LifeStyle.PerWebRequest);
             container.Register(Component.For<IEmployeeService>().ImplementedBy<EmployeeService>().LifeStyle.PerWebRequest);
-            container.Register(Component.For<EmployeeManagement.WebUI.Mappings.IMapperFactory<EmployeeModel>>().ImplementedBy<EmployeeManagement.WebUI.Mappings.MapperFactory>().LifeStyle.PerWebRequest);
-            container.Register(Component.For<EmployeeManagement.Data.EF.Mappings.IMapperFactory<Employee>>().ImplementedBy<EmployeeManagement.Data.EF.Mappings.MapperFactory>().LifeStyle.PerWebRequest);
+            container.Register(Component.For<IEmployeeModelFactory<EmployeeModel>>().ImplementedBy<EmployeeModelFactory>().LifeStyle.PerWebRequest);
+            container.Register(Component.For<IMapperFactory<Employee>>().ImplementedBy<MapperFactory>().LifeStyle.PerWebRequest);
 
             container.Register(AllTypes.FromThisAssembly()
                     .BasedOn<IController>()

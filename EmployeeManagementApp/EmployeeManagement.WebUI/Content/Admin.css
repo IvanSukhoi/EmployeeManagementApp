@@ -1,8 +1,8 @@
-﻿BODY, TD {
+﻿body, td {
     font-family: Segoe UI, Verdana
 }
 
-H1 {
+h1 {
     padding: .5em;
     padding-top: 0;
     font-weight: bold;
@@ -10,30 +10,30 @@ H1 {
     border-bottom: 2px solid gray;
 }
 
-DIV#content {
+div#content {
     padding: .9em;
 }
 
-TABLE.Grid TD, TABLE.Grid TH {
+table.Grid td, table.Grid th {
     border-bottom: 1px dotted gray;
     text-align: left;
 }
 
-TABLE.Grid {
+table.Grid {
     border-collapse: collapse;
     width: 100%;
 }
 
-    TABLE.Grid TH.NumericCol, Table.Grid TD.NumericCol {
-        text-align: right;
-        padding-right: 1em;
-    }
+table.Grid th.NumericCol, table.Grid td.NumericCol {
+    text-align: right;
+    padding-right: 1em;
+}
 
-FORM {
+form {
     margin-bottom: 0px;
 }
 
-DIV.Message {
+div.Message {
     background: gray;
     color: White;
     padding: .2em;
@@ -71,9 +71,9 @@ DIV.Message {
     font-weight: bold;
 }
 
-    .editor-label:after {
-        content: ":"
-    }
+.editor-label:after {
+    content: ":"
+}
 
 .text-box {
     width: 25em;
@@ -83,3 +83,53 @@ DIV.Message {
     height: 5em;
     font-family: Segoe UI, Verdana;
 }
+
+/* Dropdown Button */
+.dropbtn {
+    background-color: #3498DB;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+    /* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #2980B9;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+    /* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+        /* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: #ddd
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {
+    display: block;
+}
+

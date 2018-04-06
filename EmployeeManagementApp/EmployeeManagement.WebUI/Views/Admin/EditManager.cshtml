@@ -1,0 +1,28 @@
+﻿@model EmployeeManagement.WebUI.Models.ManagerModel
+
+@{
+    ViewBag.Title = "Admin: Edit " + Model.FirstName + Model.LastName;
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if (Model.ActionMethod == ActionMethod.Create)
+{
+    <h1>Create</h1>
+}
+@if (Model.ActionMethod == ActionMethod.Edit)
+{
+    <h1>Edit @Model.FirstName @Model.LastName</h1>
+}
+
+@using (Html.BeginForm("EditManager", "Admin"))
+{
+    <h3>Profession: Developer</h3>
+    @Html.EditorForModel();
+     <h4>
+        Department:<br>
+        @Html.DropDownListFor(m => m.DepartmentID, new SelectList(Model.DepartmentModelList, "ID", "Name"))
+      </h4>
+    <input type="submit" value="Save" />
+    @Html.ActionLink("Cancel and return to List", "Index")
+ }
+

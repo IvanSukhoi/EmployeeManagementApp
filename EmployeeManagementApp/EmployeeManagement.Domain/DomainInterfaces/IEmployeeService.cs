@@ -9,5 +9,6 @@ namespace EmployeeManagement.Domain.DomainInterfaces
         Employee Get(int employeeId);
         void AssignDepartmnet(int departmentId, Employee employee);
         void ChangeDepartment(int departmnetId, Employee employee);
+        void SaveEmployee(Employee employee);
     }
 }

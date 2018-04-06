@@ -7,6 +7,7 @@ namespace EmployeeManagement.Data.EF.Entities
     public class EmployeeEntity
     {
         [Key, Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
         [Required, ForeignKey(nameof(Department))]

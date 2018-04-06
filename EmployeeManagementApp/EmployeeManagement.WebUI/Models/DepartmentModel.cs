@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System.ComponentModel;
+using System.Web.Mvc;
 
 namespace EmployeeManagement.WebUI.Models
 {
     public class DepartmentModel
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
+
         public string Name { get; set; }
-        public List<int> CatalogEmployeeID { get; set; }
     }
 }

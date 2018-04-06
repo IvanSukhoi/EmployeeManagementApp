@@ -10,11 +10,20 @@ namespace EmployeeManagement.WebUI
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapRoute(null, "Admin/{action}/{id}",
+                new
+                {
+                    controller = "Admin",
+                    action = "EditDeveloper",
+                    id = UrlParameter.Optional
+                });
+
+
             routes.MapRoute(null, "Admin/Edit/{id}",
                 new
                 {
                     controller = "Admin",
-                    action = "Edit",
+                    action = "EditManager",
                     id = UrlParameter.Optional
                 });
 

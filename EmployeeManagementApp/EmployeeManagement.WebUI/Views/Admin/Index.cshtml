@@ -2,10 +2,10 @@
 @model IEnumerable<EmployeeModel>
 
 @{
-    ViewBag.Title = "Admin: All Products";
+    ViewBag.Title = "Admin: All Employees";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-<h1>All Products</h1>
+<h1>All Employees</h1>
 <table class="Grid">
     <tr>
         <th>ID</th>
@@ -15,18 +15,32 @@
     </tr>
     @foreach (var item in Model)
     {
-        <tr>
-            <td>@item.ID</td>
-            <td>@Html.ActionLink(item.FirstName + item.LastName, "Edit", new { id = item.ID })</td>
-            <td class="NumericCol">@item.DepartmentName</td>
-            <td>
-                @using (Html.BeginForm("Delete", "Admin"))
-                {
-                    @Html.Hidden("ProductID", item.ID)
-                    <input type="submit" value="Delete" />
-                }
-            </td>
-        </tr>
+    <tr>
+        <td>@item.ID</td>
+        @if (item.ModelType == ModelType.Developer)
+        {
+            <td>@Html.ActionLink(item.FirstName + item.LastName, "EditDeveloper", new { id = item.ID })</td>
+        }
+        @if (item.ModelType == ModelType.Manager)
+        {
+            <td>@Html.ActionLink(item.FirstName + item.LastName, "EditManager", new { id = item.ID })</td>
+        }
+        @if (item.ModelType == ModelType.ServiceWorker)
+        {
+            <td>@Html.ActionLink(item.FirstName + item.LastName, "EditServiceWorker", new { id = item.ID })</td>
+        }
+        <td class="NumericCol">@item.DepartmentName</td>
+        <td>
+        @using (Html.BeginForm("Delete", "Admin"))
+        {
+            @Html.Hidden("EmployeeID", item.ID)
+            <input type="submit" value="Delete" />
+        }
+        </td>
+    </tr>
     }
 </table>
-<p>@Html.ActionLink("Add a new employee", "Create")</p>
+
+<p>@Html.ActionLink("Add a new manager", "CreateManager")</p>
+<p>@Html.ActionLink("Add a new developer", "CreateDeveloper")</p>
+<p>@Html.ActionLink("Add a new service worker", "CreateServiceWorker")</p>

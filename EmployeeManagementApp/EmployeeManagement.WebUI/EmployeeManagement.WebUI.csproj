@@ -164,12 +164,14 @@
     <Compile Include="Controllers\NavController.cs" />
     <Compile Include="DI\CastleWindsor.cs" />
     <Compile Include="DI\WindsorControllerFactory.cs" />
+    <Compile Include="Enums\ActionMethod.cs" />
+    <Compile Include="Enums\ModelType.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HtmlHelpers\PagingHelpers.cs" />
-    <Compile Include="Mappings\MapperFactory.cs" />
-    <Compile Include="Mappings\UIMappingProfile.cs" />
+    <Compile Include="App_Start\Mappings\EmployeeModelFactory.cs" />
+    <Compile Include="App_Start\Mappings\UIMappingProfile.cs" />
     <Compile Include="Models\DepartmentModel.cs" />
     <Compile Include="Models\DeveloperModel.cs" />
     <Compile Include="Models\EmployeeListModel.cs" />
@@ -223,7 +225,12 @@
     <Content Include="Views\Shared\ServiceWorkerSummary.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\Edit.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Sex.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Position.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Profession.cshtml" />
+    <Content Include="Views\Admin\EditManager.cshtml" />
+    <Content Include="Views\Admin\EditDeveloper.cshtml" />
+    <Content Include="Views\Admin\EditServiceWorker.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

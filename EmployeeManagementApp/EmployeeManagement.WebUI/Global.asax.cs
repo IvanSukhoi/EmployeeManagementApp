@@ -15,8 +15,8 @@ namespace EmployeeManagement.WebUI
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             CastleWindsor.Setup();
         }
-   
-    protected void Application_End()
+
+        protected void Application_End()
         {
             CastleWindsor.Dispose();
         }

@@ -23,12 +23,12 @@ textarea {
     max-width: 280px;
 }
 
-BODY {
+body {
     font-family: Cambria, Georgia, "Times New Roman";
     margin: 0;
 }
 
-DIV#header DIV.title, DIV.item H3, DIV.item H4, DIV.pager A {
+div#header div.title, div.item h3, div.item h4, div.pager a {
     font: bold 1em "Arial Narrow", "Franklin Gothic Medium", Arial;
 }
 
@@ -38,38 +38,38 @@ DIV#header {
     color: White;
 }
 
-    DIV#header DIV.title {
-        font-size: 2em;
-        padding: .6em;
-    }
+div#header div.title {
+    font-size: 2em;
+    padding: .6em;
+}
 
-DIV#content {
+div#content {
     border-left: 2px solid gray;
     margin-left: 9em;
     padding: 1em;
 }
 
-DIV#categories {
+div#categories {
     float: left;
     width: 8em;
     padding: .3em;
 }
 
-DIV.item {
+div.item {
     border-top: 1px dotted gray;
     padding-top: .7em;
     margin-bottom: .7em;
 }
 
-    DIV.item:first-child {
-        border-top: none;
-        padding-top: 0;
-    }
+div.item:first-child {
+    border-top: none;
+    padding-top: 0;
+}
 
-    DIV.item H3 {
-        font-size: 1.3em;
-        margin: 0 0 .25em 0;
-    }
+div.item H3 {
+    font-size: 1.3em;
+    margin: 0 0 .25em 0;
+}
 
     DIV.item H4 {
         font-size: 1.1em;

@@ -1,4 +1,6 @@
-﻿namespace EmployeeManagement.WebUI.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EmployeeManagement.WebUI.Models
 {
     public class ServiceWorkerModel : EmployeeModel
     {

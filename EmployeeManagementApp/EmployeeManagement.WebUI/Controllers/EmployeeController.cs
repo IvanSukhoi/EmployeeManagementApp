@@ -11,10 +11,10 @@ namespace EmployeeManagement.WebUI.Controllers
     public class EmployeeController : Controller
     {
         private readonly IEmployeeService _employeeService;
-        private readonly IMapperFactory<EmployeeModel> _mapperFactory;
+        private readonly IEmployeeModelFactory<EmployeeModel> _mapperFactory;
         public int PageSize = 4;
 
-        public EmployeeController(IEmployeeService employeeService, IMapperFactory<EmployeeModel> mapperFactory)
+        public EmployeeController(IEmployeeService employeeService, IEmployeeModelFactory<EmployeeModel> mapperFactory)
         {
             _employeeService = employeeService;
             _mapperFactory = mapperFactory;
@@ -27,7 +27,7 @@ namespace EmployeeManagement.WebUI.Controllers
 
             foreach (var employee in employees)
             {
-                var employeeModel = _mapperFactory.GetEmployeeModel<EmployeeModel>(employee);
+                var employeeModel = _mapperFactory.MappEmployeeToEmployeeModel<EmployeeModel>(employee);
                 employeeModels.Add(employeeModel);
             }
 

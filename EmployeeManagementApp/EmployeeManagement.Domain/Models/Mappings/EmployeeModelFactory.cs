@@ -4,16 +4,16 @@ using EmployeeManagement.WebUI.Models;
 
 namespace EmployeeManagement.WebUI.Mappings
 {
-    public interface IMapperFactory<T>
+    public interface IEmployeeModelFactory<T>
     {
         T GetEmployeeModel<T>(Employee employee) where T : EmployeeModel;
         Employee GetEmployee<T>(T employee) where T : EmployeeModel;
     }
 
-    public class MapperFactory : IMapperFactory<EmployeeModel>
+    public class EmployeeModelFactory : IEmployeeModelFactory<EmployeeModel>
     {
         private IMapper _mapper;
-        public MapperFactory(IMapper mapper)
+        public EmployeeModelFactory(IMapper mapper)
         {
             _mapper = mapper;
         }

@@ -4,7 +4,6 @@ using EmployeeManagement.Data.EF.Mappings;
 using EmployeeManagement.Domain.Models;
 using EmployeeManagement.WebUI.Mappings;
 using NUnit.Framework;
-using System.Collections.Generic;
 
 namespace EmployeeManagement.Data.EF.Tests
 {
@@ -27,14 +26,14 @@ namespace EmployeeManagement.Data.EF.Tests
         {
             var departmentEntity = new DepartmentEntity
             {
-                CatalogEmployeeID = new List<int> { 1, 3 },
+                //CatalogEmployeeID = new List<int> { 1, 3 },
                 ID = 3,
                 Name = "DepEntityName1"
             };
 
             var departmnet = _mapper.Map<DepartmentEntity, Department>(departmentEntity);
 
-            Assert.That(departmentEntity.CatalogEmployeeID, Is.EquivalentTo(departmnet.CatalogEmployeeID));
+            //Assert.That(departmentEntity.CatalogEmployeeID, Is.EquivalentTo(departmnet.CatalogEmployeeID));
             Assert.That(departmentEntity.ID, Is.EqualTo(departmnet.ID));
             Assert.That(departmentEntity.Name, Is.EqualTo(departmnet.Name));
         }
@@ -44,14 +43,14 @@ namespace EmployeeManagement.Data.EF.Tests
         {
             var department = new Department
             {
-                CatalogEmployeeID = new List<int> { 1, 3 },
+                //CatalogEmployeeID = new List<int> { 1, 3 },
                 ID = 3,
                 Name = "DepName1"
             };
 
             var departmnetEntity = _mapper.Map<Department, DepartmentEntity>(department);
 
-            Assert.That(department.CatalogEmployeeID, Is.EquivalentTo(departmnetEntity.CatalogEmployeeID));
+            //Assert.That(department.CatalogEmployeeID, Is.EquivalentTo(departmnetEntity.CatalogEmployeeID));
             Assert.That(department.ID, Is.EqualTo(departmnetEntity.ID));
             Assert.That(department.Name, Is.EqualTo(departmnetEntity.Name));
         }
