@@ -20,8 +20,8 @@ namespace EmployeeManagement.WebUI.Controllers
         {
             ViewBag.SelectedCategory = category;
 
-            var departmens = _departmnetService.GetAll();
-            IEnumerable<string> categories = departmens
+            var departments = _departmnetService.GetAll();
+            IEnumerable<string> categories = departments
                 .Select(x => x.Name)
                 .Distinct()
                 .OrderBy(x => x);

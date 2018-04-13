@@ -1,0 +1,48 @@
+﻿@model EmployeeManagement.WebUI.Models.DeveloperModel
+
+@{
+    ViewBag.Title = "Admin: Edit " + Model.FirstName + Model.LastName;
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if (Model.ActionMethod == ActionMethod.Create)
+{
+    <h1>Create</h1>
+}
+@if (Model.ActionMethod == ActionMethod.Edit)
+{
+    <h1>Edit @Model.FirstName @Model.LastName</h1>
+}
+
+@using (Html.BeginForm("EditDeveloper", "Employee"))
+{
+    <h3>Profession: Developer</h3>
+    <h4>
+        FirstName:
+        @Html.TextBoxFor(model => model.FirstName,
+                  new { style = "width: 150px" })
+    </h4>
+    <h4>MidleName: 
+        @Html.TextBoxFor(x => x.MidleName, 
+                  new { style = "width: 150px" })</h4>
+    <h4>LastName: 
+        @Html.TextBoxFor(x => x.LastName,
+                  new { style = "width: 150px" })</h4>
+    <h4>ManagerID: 
+        @Html.TextBoxFor(x => x.ManagerID,
+                  new { style = "width: 50px" })</h4>
+    if (Model.ActionMethod == ActionMethod.Create)
+    {
+    <h4>Sex: 
+        @Html.EditorFor(x => x.Sex)</h4>
+    }
+    <h4>Position: 
+        @Html.EditorFor(x => x.Position)</h4>
+    <h4>
+        Department:
+        @Html.DropDownListFor(m => m.DepartmentID, new SelectList(Model.DepartmentModelList, "ID", "Name"))
+    </h4>
+    <input type="submit" value="Save" />
+    @Html.ActionLink("Cancel and return to List", "Index")
+}
+

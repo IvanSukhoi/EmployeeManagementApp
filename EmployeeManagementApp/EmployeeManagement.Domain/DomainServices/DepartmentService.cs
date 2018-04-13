@@ -40,7 +40,7 @@ namespace EmployeeManagement.Domain.DomainServices
 
         public void Update(Department department)
         {
-            throw new System.NotImplementedException();
+            _departmentRepository.Update(department);
         }
     }
 }

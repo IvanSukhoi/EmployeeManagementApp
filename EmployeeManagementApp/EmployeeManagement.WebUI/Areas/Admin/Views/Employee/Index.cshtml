@@ -31,9 +31,9 @@
         }
         <td class="NumericCol">@item.DepartmentName</td>
         <td>
-        @using (Html.BeginForm("Delete", "Admin"))
+        @using (Html.BeginForm("Delete", "Employee"))
         {
-            @Html.Hidden("EmployeeID", item.ID)
+            @Html.Hidden("ID", item.ID)
             <input type="submit" value="Delete" />
         }
         </td>

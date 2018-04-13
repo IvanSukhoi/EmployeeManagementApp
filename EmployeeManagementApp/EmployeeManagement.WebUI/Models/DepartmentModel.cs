@@ -1,7 +1,4 @@
-﻿using System.ComponentModel;
-using System.Web.Mvc;
-
-namespace EmployeeManagement.WebUI.Models
+﻿namespace EmployeeManagement.WebUI.Models
 {
     public class DepartmentModel
     {

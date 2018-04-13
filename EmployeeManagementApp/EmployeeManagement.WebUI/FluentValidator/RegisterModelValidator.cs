@@ -12,7 +12,6 @@ namespace Fluent_Validtion.Models.Validators
             RuleFor(x => x.LastName)
                 .NotEmpty().WithMessage("LastName is Required").Length(0, 50);
             RuleFor(x => x.ID).Null();
-
         }
     }
 }

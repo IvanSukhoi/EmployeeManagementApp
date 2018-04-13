@@ -168,11 +168,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\DepartmentController.cs" />
+    <Compile Include="Areas\Admin\Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\NavController.cs" />
-    <Compile Include="DI\CastleWindsor.cs" />
-    <Compile Include="DI\WindsorControllerFactory.cs" />
+    <Compile Include="App_Start\DI\CastleWindsor.cs" />
+    <Compile Include="App_Start\DI\WindsorControllerFactory.cs" />
     <Compile Include="Enums\ActionMethod.cs" />
     <Compile Include="Enums\ModelType.cs" />
     <Compile Include="FluentValidator\RegisterModelValidator.cs" />
@@ -180,8 +182,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HtmlHelpers\PagingHelpers.cs" />
-    <Compile Include="App_Start\Mappings\EmployeeModelFactory.cs" />
-    <Compile Include="App_Start\Mappings\UIMappingProfile.cs" />
+    <Compile Include="Mappings\EmployeeModelFactory.cs" />
+    <Compile Include="Mappings\UIMappingProfile.cs" />
     <Compile Include="Models\DepartmentModel.cs" />
     <Compile Include="Models\DeveloperModel.cs" />
     <Compile Include="Models\EmployeeListModel.cs" />
@@ -192,18 +194,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Admin.css" />
+    <Content Include="Content\admin.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Department\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Department\Edit.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -234,16 +239,19 @@
     <Content Include="Views\Shared\DeveloperSummary.cshtml" />
     <Content Include="Views\Shared\ServiceWorkerSummary.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Employee\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Sex.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Position.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Profession.cshtml" />
-    <Content Include="Views\Admin\EditManager.cshtml" />
-    <Content Include="Views\Admin\EditDeveloper.cshtml" />
-    <Content Include="Views\Admin\EditServiceWorker.cshtml" />
+    <Content Include="Areas\Admin\Views\Employee\EditManager.cshtml" />
+    <Content Include="Areas\Admin\Views\Employee\EditDeveloper.cshtml" />
+    <Content Include="Areas\Admin\Views\Employee\EditServiceWorker.cshtml" />
+    <Content Include="Views\Employee\GetManagerEmployee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

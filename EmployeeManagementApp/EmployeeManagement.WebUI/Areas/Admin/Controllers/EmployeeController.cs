@@ -7,16 +7,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
-namespace EmployeeManagement.WebUI.Controllers
+namespace EmployeeManagement.WebUI.Areas.Admin.Controllers
 {
-    public class AdminController : Controller
+    public class EmployeeController : Controller
     {
         private IEmployeeService _employeeService;
         private IDepartmentService _departmentService;
         private IEmployeeModelFactory<EmployeeModel> _mapperFactory;
         private IMapper _mapper;
 
-        public AdminController(IEmployeeService employeeService, IDepartmentService departmentService, IMapper mapper, IEmployeeModelFactory<EmployeeModel> mapperFactory)
+        public EmployeeController(IEmployeeService employeeService, IDepartmentService departmentService, IMapper mapper, IEmployeeModelFactory<EmployeeModel> mapperFactory)
         {
             _employeeService = employeeService;
             _departmentService = departmentService;
@@ -65,7 +65,7 @@ namespace EmployeeManagement.WebUI.Controllers
             if (ModelState.IsValid)
             {
                 SaveEmployeeModel(employeeModel);
-
+               
                 return RedirectToAction("Index");
             }
             else
@@ -90,7 +90,7 @@ namespace EmployeeManagement.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditServiceWoker(ServiceWorkerModel employeeModel)
+        public ActionResult EditServiceWorker(ServiceWorkerModel employeeModel)
         {
             if (ModelState.IsValid)
             {
@@ -106,17 +106,35 @@ namespace EmployeeManagement.WebUI.Controllers
 
         public ViewResult CreateDeveloper()
         {
-            return View("EditDeveloper", new DeveloperModel());
+            var departmentModels = _departmentService.GetAll().Select(x => _mapper.Map<Department, DepartmentModel>(x)).ToList();
+
+            return View("EditDeveloper", new DeveloperModel { DepartmentModelList = departmentModels, ActionMethod = ActionMethod.Create});
         }
 
         public ViewResult CreateManager()
         {
-            return View("EditManager", new ManagerModel());
+            var departmentModels = _departmentService.GetAll().Select(x => _mapper.Map<Department, DepartmentModel>(x)).ToList();
+
+            return View("EditManager", new ManagerModel { DepartmentModelList = departmentModels, ActionMethod = ActionMethod.Create});
         }
 
         public ViewResult CreateServiceWorker()
         {
-            return View("EditServiceWorker", new ServiceWorkerModel());
+            var departmentModels = _departmentService.GetAll().Select(x => _mapper.Map<Department, DepartmentModel>(x)).ToList();
+
+            return View("EditServiceWorker", new ServiceWorkerModel { DepartmentModelList = departmentModels, ActionMethod = ActionMethod.Create});
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            var employee = _employeeService.Get(id);
+            _employeeService.Delete(id);
+            if (employee != null)
+            {
+                TempData["message"] = string.Format("{0} was deleted", employee.FirstName + employee.LastName);
+            }
+            return RedirectToAction("Index");
         }
 
         private void BuildEmployeeModel(EmployeeModel employeeModel)
@@ -128,7 +146,16 @@ namespace EmployeeManagement.WebUI.Controllers
         private void SaveEmployeeModel(EmployeeModel employeeModel)
         {
             var employee = _mapperFactory.MappEmployeeModelToEmployee(employeeModel);
-            _employeeService.SaveEmployee(employee);
+            TempData["message"] = string.Format("{0} has been saved", employee.FirstName + employee.LastName);
+
+            if (employee.ID == 0)
+            {
+                _employeeService.Create(employee);
+            }
+            else
+            {
+                _employeeService.Update(employee);
+            }
         }
     }
 }

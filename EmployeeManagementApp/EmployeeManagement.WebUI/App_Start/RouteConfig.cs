@@ -1,6 +1,5 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
-using System.Web.UI.WebControls;
 
 namespace EmployeeManagement.WebUI
 {
@@ -10,23 +9,6 @@ namespace EmployeeManagement.WebUI
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(null, "Admin/{action}/{id}",
-                new
-                {
-                    controller = "Admin",
-                    action = "EditDeveloper",
-                    id = UrlParameter.Optional
-                });
-
-
-            routes.MapRoute(null, "Admin/Edit/{id}",
-                new
-                {
-                    controller = "Admin",
-                    action = "EditManager",
-                    id = UrlParameter.Optional
-                });
-
             routes.MapRoute(null,
                 "",
                 new
@@ -34,26 +16,36 @@ namespace EmployeeManagement.WebUI
                     controller = "Employee",
                     action = "List",
                     category = (string)null,
-                    page = 1
-                }
+                    page = 1,
+                    managerId = 0
+                },
+                new[] { "EmployeeManagement.WebUI.Controllers" }
             );
 
             routes.MapRoute(null,
-                "Page{page}",
-                new { controller = "Employee", action = "List", category = (string)null },
-                new { page = @"\d+" }
-            );
-
-
-            routes.MapRoute(null,
-                "{category}",
-                new { controller = "Employee", action = "List", page = 1 }
+                "Page{page}/Manager{managerId}",
+                new { controller = "Employee", action = "List", category = (string)null, managerId = 0 },
+                new { page = @"\d+" },
+                new[] { "EmployeeManagement.WebUI.Controllers" }
             );
 
             routes.MapRoute(null,
-                "{category}/Page{page}",
-                new { controller = "Employee", action = "List" },
-                new { page = @"\d+" }
+                "{category}/Manager{managerId}",
+                new { controller = "Employee", action = "List", page = 1, managerId = 0 },
+                new[] { "EmployeeManagement.WebUI.Controllers" }
+            );
+
+            routes.MapRoute(null,
+                "{category}/{page}/Manager{managerId}",
+                new { controller = "Employee", action = "List"},
+                new { page = @"\d+" },
+                new[] { "EmployeeManagement.WebUI.Controllers" }
+            );
+
+            routes.MapRoute(null,
+                "Employee{employeeId}",
+                new { controller = "Employee", action = "GetManagerEmployee", category = (string)null},
+                new[] { "EmployeeManagement.WebUI.Controllers" }
             );
 
             routes.MapRoute(null, "{controller}/{action}");

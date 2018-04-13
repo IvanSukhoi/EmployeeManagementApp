@@ -36,7 +36,6 @@ namespace EmployeeManagement.Data.EF.Mappings
             CreateMap<ServiceWorker, EmployeeEntity>()
                     .ForMember(s => s.Profession, opt => opt.MapFrom(c => c.TypeOfWorker))
                     .ForMember(s => s.Department, opt => opt.MapFrom(c => c.Department));
-
         }
     }
 }

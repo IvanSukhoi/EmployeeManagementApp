@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace EmployeeManagement.WebUI.Models
+﻿namespace EmployeeManagement.WebUI.Models
 {
     public class ServiceWorkerModel : EmployeeModel
     {

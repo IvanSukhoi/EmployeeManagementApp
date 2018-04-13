@@ -8,10 +8,19 @@
         controller = "Employee",
         action = "List",
         category = link,
+        managerId = TempData["ManagerId"],
         page = 1
     },
-    new {
+    new
+    {
         @class = link == ViewBag.SelectedCategory ? "selected" : null
     })
 }
-
+@if (TempData["Manager"] != null)
+{
+    <a class="selected">Manager: @TempData["Manager"]</a>
+}
+@if (TempData["Employee"] != null)
+{
+    <a class="selected">Employee: @TempData["Employee"]</a>
+}

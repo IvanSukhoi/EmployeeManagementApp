@@ -7,5 +7,6 @@ namespace EmployeeManagement.WebUI.Models
         public IEnumerable<EmployeeModel> Employees { get; set; }
         public PagingInfo PagingInfo { get; set; }
         public string CurrentCategory{ get; set; }
+        public int ManagerId { get; set; }
     }
 }

@@ -40,9 +40,24 @@ namespace EmployeeManagement.Domain.DomainServices
             return _employeeRepository.GetAll();
         }
 
-        public void SaveEmployee(Employee employee)
+        public void Create(Employee employee)
         {
-            _employeeRepository.SaveEmployee(employee);
+            _employeeRepository.Create(employee);
+        }
+
+        public void Delete(int employeeId)
+        {
+            _employeeRepository.Delete(employeeId);
+        }
+
+        public void Update(Employee employee)
+        {
+            _employeeRepository.Update(employee);
+        }
+
+        public IEnumerable<Employee> GetByManagerId(int managerId)
+        {
+           return  _employeeRepository.GetByManagerId(managerId);
         }
     }
 }

@@ -24,6 +24,7 @@ namespace EmployeeManagement.Data.EF.Repositories
         {
             var departmentEntity = _mapper.Map<Department, DepartmentEntity>(department);   
            _dbContext.Departments.Add(departmentEntity);
+            _dbContext.SaveChanges();
         }
 
         public List<Department> GetAll()
@@ -38,6 +39,7 @@ namespace EmployeeManagement.Data.EF.Repositories
             if (departmentEntity != null)
             {
                 _dbContext.Departments.Remove(departmentEntity);
+                _dbContext.SaveChanges();
             }
             else
             {
@@ -64,7 +66,13 @@ namespace EmployeeManagement.Data.EF.Repositories
 
         public void Update(Department department)
         {
-            throw new NotImplementedException();
+            var departmentEntity = _dbContext.Departments.FirstOrDefault(x => x.ID == department.ID);
+
+            if (departmentEntity != null)
+            {
+                departmentEntity.Name = department.Name;
+                _dbContext.SaveChanges();
+            }
         }
 
         public void Save()
