@@ -10,6 +10,6 @@ namespace EmployeeManagement.Domain.DataInterfaces
         void Create(Employee employee);
         void Update(Employee employee);
         void Delete(int employeeId);
-        void Save();
+        IEnumerable<Employee> GetByManagerId(int managerId);
     }
 }

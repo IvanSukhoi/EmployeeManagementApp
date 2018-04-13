@@ -16,25 +16,36 @@ namespace EmployeeManagement.WebUI
                     controller = "Employee",
                     action = "List",
                     category = (string)null,
-                    page = 1
-                }
+                    page = 1,
+                    managerId = 0
+                },
+                new[] { "EmployeeManagement.WebUI.Controllers" }
             );
 
             routes.MapRoute(null,
-                "Page{page}",
-                new { controller = "Employee", action = "List", category = (string)null },
-                new { page = @"\d+" }
+                "Page{page}/Manager{managerId}",
+                new { controller = "Employee", action = "List", category = (string)null, managerId = 0 },
+                new { page = @"\d+" },
+                new[] { "EmployeeManagement.WebUI.Controllers" }
             );
 
             routes.MapRoute(null,
-                "{category}",
-                new { controller = "Employee", action = "List", page = 1 }
+                "{category}/Manager{managerId}",
+                new { controller = "Employee", action = "List", page = 1, managerId = 0 },
+                new[] { "EmployeeManagement.WebUI.Controllers" }
             );
 
             routes.MapRoute(null,
-                "{category}/Page{page}",
-                new { controller = "Employee", action = "List" },
-                new { page = @"\d+" }
+                "{category}/{page}/Manager{managerId}",
+                new { controller = "Employee", action = "List"},
+                new { page = @"\d+" },
+                new[] { "EmployeeManagement.WebUI.Controllers" }
+            );
+
+            routes.MapRoute(null,
+                "Employee{employeeId}",
+                new { controller = "Employee", action = "GetManagerEmployee", category = (string)null},
+                new[] { "EmployeeManagement.WebUI.Controllers" }
             );
 
             routes.MapRoute(null, "{controller}/{action}");

@@ -1,6 +1,6 @@
-﻿using AutoMapper;
-using EmployeeManagement.Data.EF.DAL;
+﻿using EmployeeManagement.Data.EF.DAL;
 using EmployeeManagement.Data.EF.Entities;
+using EmployeeManagement.Data.EF.Mappings;
 using EmployeeManagement.Domain.DataInterfaces;
 using EmployeeManagement.Domain.Models;
 using System;
@@ -12,20 +12,20 @@ namespace EmployeeManagement.Data.EF.Repositories
     public class EmployeeRepository : IEmployeeRepository
     {
         private readonly EmployeeContext _dbContext;
-        private readonly MapperFactory _factotory;
-        private readonly IMapper _mapper;
+        private readonly IMapperFactory<Employee> _mapperFactory;
 
-        public EmployeeRepository(EmployeeContext dbContext, IMapper mapper)
+        public EmployeeRepository(EmployeeContext dbContext, IMapperFactory<Employee> factory)
         {
             _dbContext = dbContext;
-            _mapper = mapper;
-            _factotory = new MapperFactory(_mapper);
+            _mapperFactory = factory;
         }
 
         public void Create(Employee employee)
         {
-            var employeeEntity = _factotory.GetEmployeeEF(employee);
+            var employeeEntity = _mapperFactory.MappEmployeeToEmployeeEntity(employee);
+            employeeEntity.Department = _dbContext.Departments.FirstOrDefault(x => x.ID == employeeEntity.DepartmentID);
             _dbContext.Employees.Add(employeeEntity);
+            _dbContext.SaveChanges();
         }
 
         public Employee Get(int emoloyeeId)
@@ -33,12 +33,12 @@ namespace EmployeeManagement.Data.EF.Repositories
             var employeeEntity = _dbContext.Employees.FirstOrDefault(x => x.ID == emoloyeeId);
             if (employeeEntity != null)
             {
-                var employee = _factotory.GetEmployee<Employee>(employeeEntity);
+                var employee = _mapperFactory.MappEmployeeEntityToEmployee<Employee>(employeeEntity);
 
                 if (employee as Manager != null)
                 {
                     var manager = employee as Manager;
-                    manager.EmployeeID = _dbContext.Employees.Where(x => x.ID == manager.ID).Select(x => x.ID).ToList();
+                    manager.EmployeeID = _dbContext.Employees.Where(x => x.ManagerID == manager.ID).Select(x => x.ID).ToList();
 
                     return manager;
                 }
@@ -58,12 +58,12 @@ namespace EmployeeManagement.Data.EF.Repositories
 
             foreach (var employeeEntity in employeeEntities)
             {
-                var employee = _factotory.GetEmployee<Employee>(employeeEntity);
+                var employee = _mapperFactory.MappEmployeeEntityToEmployee<Employee>(employeeEntity);
 
                 if (employee as Manager != null)
                 {
                     var manager = employee as Manager;
-                    manager.EmployeeID = _dbContext.Employees.Where(x => x.ID == manager.ID).Select(x => x.ID).ToList();
+                    manager.EmployeeID = _dbContext.Employees.Where(x => x.ManagerID == manager.ID).Select(x => x.ID).ToList();
 
                     result.Add(manager);
                 }
@@ -82,6 +82,7 @@ namespace EmployeeManagement.Data.EF.Repositories
             if (employeeEntity != null)
             {
                 _dbContext.Employees.Remove(employeeEntity);
+                _dbContext.SaveChanges();
             }
             else
             {
@@ -89,14 +90,31 @@ namespace EmployeeManagement.Data.EF.Repositories
             }
         }
 
-        public void Update(Employee employee)
+        public IEnumerable<Employee> GetByManagerId(int managerId)
         {
-            throw new NotImplementedException();
+            var employees = _dbContext.Employees.Where(x => x.ManagerID == managerId).ToList();
+
+            return employees.Select(x => _mapperFactory.MappEmployeeEntityToEmployee<Employee>(x));
         }
 
-        public void Save()
+        public void Update(Employee employee)
         {
-            _dbContext.SaveChanges();
+            var employeeEntity = _mapperFactory.MappEmployeeToEmployeeEntity(employee);
+           
+            EmployeeEntity dbEntry = _dbContext.Employees.Find(employeeEntity.ID);
+
+            if (dbEntry != null)
+            {
+                dbEntry.FirstName = employeeEntity.FirstName;
+                dbEntry.MidleName = employeeEntity.MidleName;
+                dbEntry.LastName = employeeEntity.LastName;
+                dbEntry.Position = employeeEntity.Position;
+                dbEntry.Profession = employeeEntity.Profession;
+                dbEntry.ManagerID = employeeEntity.ManagerID;
+                dbEntry.DepartmentID = employeeEntity.DepartmentID;
+                _dbContext.Entry(dbEntry).Reference(x => x.Department).Load();
+                _dbContext.SaveChanges();
+            }
         }
     }
 }

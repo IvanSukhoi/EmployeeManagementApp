@@ -8,18 +8,29 @@ namespace EmployeeManagement.WebUI.Mappings
     {
         public UIMappingProfile()
         {
-            CreateMap<Employee, EmployeeModel>()
-                    .ForMember(s => s.Sex, opt => opt.MapFrom(c => c.Sex))
-                    .ForMember(s => s.DepartmentName, opt => opt.MapFrom(c => c.Department.Name));
-
             CreateMap<Department, DepartmentModel>();
-            CreateMap<Developer, DeveloperModel>();
-            CreateMap<ServiceWorker, ServiceWorkerModel>();
-            CreateMap<Manager, ManagerModel>();
-
             CreateMap<DepartmentModel, Department>();
+
+            CreateMap<Developer, DeveloperModel>()
+                .ForMember(s => s.DepartmentName, opt => opt.MapFrom(c => c.Department.Name))
+                .ForMember(s => s.ModelType, opt => opt.MapFrom(c => ModelType.Developer));
+
+            CreateMap<ServiceWorker, ServiceWorkerModel>()
+                .ForMember(s => s.DepartmentName, opt => opt.MapFrom(c => c.Department.Name))
+                .ForMember(s => s.ModelType, opt => opt.MapFrom(c => ModelType.ServiceWorker));
+
+            CreateMap<Manager, ManagerModel>()
+                .ForMember(s => s.DepartmentName, opt => opt.MapFrom(c => c.Department.Name))
+                .ForMember(s => s.Employees, opt => opt.MapFrom(c => c.EmployeeID))
+                .ForMember(s => s.ModelType, opt => opt.MapFrom(c => ModelType.Manager));
+
+
             CreateMap<DeveloperModel, Developer>();
-            CreateMap<ManagerModel, Manager>();
+
+            CreateMap<ManagerModel, Manager>()
+                .ForMember(s => s.EmployeeID, opt => opt.MapFrom(c => c.Employees));
+
+            CreateMap<ServiceWorkerModel, ServiceWorker>();
         }
     }
 }

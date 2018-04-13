@@ -5,7 +5,7 @@ namespace EmployeeManagement.WebUI.Models
 {
     public class DeveloperModel : EmployeeModel
     {
-        public Position Position { get; set; }
         public List<Task> Tasks { get; set; }
+        public Position Position { get; set; }
     }
 }

@@ -1,7 +1,7 @@
-﻿using AutoMapper;
-using EmployeeManagement.Domain.DomainInterfaces;
+﻿using EmployeeManagement.Domain.DomainInterfaces;
 using EmployeeManagement.WebUI.Mappings;
 using EmployeeManagement.WebUI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -11,30 +11,34 @@ namespace EmployeeManagement.WebUI.Controllers
     public class EmployeeController : Controller
     {
         private readonly IEmployeeService _employeeService;
-        private readonly IMapper _mapper;
-        private readonly MapperFactory _mapperFactory;
+        private readonly IEmployeeModelFactory<EmployeeModel> _mapperFactory;
         public int PageSize = 4;
 
-        public EmployeeController(IEmployeeService employeeService, IMapper mapper)
+        public EmployeeController(IEmployeeService employeeService, IEmployeeModelFactory<EmployeeModel> mapperFactory)
         {
-            _mapper = mapper;
             _employeeService = employeeService;
-            _mapperFactory = new MapperFactory(_mapper);
+            _mapperFactory = mapperFactory;
         }
 
-        public ViewResult List(string category, int page = 1)
+        public ViewResult List(string category, int managerId, int page = 1)
         {
-            var employees = _employeeService.GetAll();
-            List<EmployeeModel> employeeModels = new List<EmployeeModel>();
+            List<EmployeeModel> employeeModels = null;
 
-            foreach (var employee in employees)
+            if (managerId == 0)
             {
-                var employeeModel = _mapperFactory.GetEmployeeModel<EmployeeModel>(employee);
-                employeeModels.Add(employeeModel);
+                employeeModels = _employeeService.GetAll().Select(x => _mapperFactory.MappEmployeeToEmployeeModel<EmployeeModel>(x)).ToList();
             }
+            else
+            {
+                employeeModels = GetTreeEmployeeList(managerId);
+            }
+
+            TempData["ManagerId"] = managerId;
 
             EmployeeListModel model = new EmployeeListModel
             {
+                ManagerId = managerId,
+
                 Employees = employeeModels
                 .Where(x => category == null || x.DepartmentName == category)
                 .OrderBy(x => x.FirstName)
@@ -51,8 +55,30 @@ namespace EmployeeManagement.WebUI.Controllers
 
                 CurrentCategory = category
             };
-            
+
             return View(model);
+        }
+
+        public List<EmployeeModel> GetTreeEmployeeList(int managerId)
+        {
+            var managerModel = _mapperFactory.MappEmployeeToEmployeeModel<ManagerModel>(_employeeService.Get(managerId));
+            var employeeModels = _employeeService.GetByManagerId(managerId)
+                .Select(x => _mapperFactory.MappEmployeeToEmployeeModel<EmployeeModel>(x)).ToList();
+
+            TempData["Manager"] = string.Format("{0}", managerModel.FirstName + managerModel.LastName);
+
+            return employeeModels;
+        }
+
+        public ViewResult GetManagerEmployee(int employeeId)
+        {
+            var employeeModel = _mapperFactory.MappEmployeeToEmployeeModel<EmployeeModel>(_employeeService.Get(employeeId));
+
+            var managerModel = _mapperFactory.MappEmployeeToEmployeeModel<ManagerModel>(_employeeService.Get((int)employeeModel.ManagerID));
+
+            TempData["Employee"] = string.Format("{0}", employeeModel.FirstName + employeeModel.LastName);
+
+            return View(managerModel);
         }
     }
 }

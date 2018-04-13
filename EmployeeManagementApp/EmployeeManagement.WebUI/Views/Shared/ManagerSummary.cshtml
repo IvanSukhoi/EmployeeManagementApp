@@ -1,13 +1,35 @@
 ﻿@model EmployeeManagement.WebUI.Models.ManagerModel
 
 <div class="item">
-    <h2>Name: @Model.FirstName @Model.LastName</h2>
+    <h3>Name: @Model.FirstName  @Model.LastName</h3>
+    <h3>Sex: @Model.Sex</h3>
     <h3>ID: @Model.ID</h3>
+    <h3>Department: @Model.DepartmentName</h3>
     @if (Model.ManagerID != null)
     {
-        <h3>ManagerID: @Model.ManagerID</h3>
+        <h3>
+            @Html.RouteLink("Manager",
+                 new
+                 {
+                     controller = "Employee",
+                     action = "GetManagerEmployee",
+                     employeeId = Model.ID
+                 })
+        </h3>
     }
-    <h3>DepartmnetID: @Model.DepartmentID</h3>
-    <h3>Sex: @Model.Sex</h3>
     <h3>Profession: Manager</h3>
+    @if (Model.Employees.Count != 0)
+    {
+        <h3>
+            @Html.RouteLink("Employees", new
+            {
+                controller = "Employee",
+                action = "List",
+                managerId = Model.ID,
+                page = 1,
+                category = (string)null
+            }
+                          )
+        </h3>
+    }
 </div>

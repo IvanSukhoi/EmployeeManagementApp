@@ -1,0 +1,46 @@
+﻿@using EmployeeManagement.WebUI.Models;
+@model IEnumerable<EmployeeModel>
+
+@{
+    ViewBag.Title = "Admin: All Employees";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<h1>All Employees</h1>
+<table class="Grid">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th class="NumericCol">Department</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>@item.ID</td>
+        @if (item.ModelType == ModelType.Developer)
+        {
+            <td>@Html.ActionLink(item.FirstName + item.LastName, "EditDeveloper", new { id = item.ID })</td>
+        }
+        @if (item.ModelType == ModelType.Manager)
+        {
+            <td>@Html.ActionLink(item.FirstName + item.LastName, "EditManager", new { id = item.ID })</td>
+        }
+        @if (item.ModelType == ModelType.ServiceWorker)
+        {
+            <td>@Html.ActionLink(item.FirstName + item.LastName, "EditServiceWorker", new { id = item.ID })</td>
+        }
+        <td class="NumericCol">@item.DepartmentName</td>
+        <td>
+        @using (Html.BeginForm("Delete", "Employee"))
+        {
+            @Html.Hidden("ID", item.ID)
+            <input type="submit" value="Delete" />
+        }
+        </td>
+    </tr>
+    }
+</table>
+
+<p>@Html.ActionLink("Add a new manager", "CreateManager")</p>
+<p>@Html.ActionLink("Add a new developer", "CreateDeveloper")</p>
+<p>@Html.ActionLink("Add a new service worker", "CreateServiceWorker")</p>

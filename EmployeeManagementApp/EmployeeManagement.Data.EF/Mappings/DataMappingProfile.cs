@@ -2,17 +2,15 @@
 using EmployeeManagement.Data.EF.Entities;
 using EmployeeManagement.Domain.Models;
 
-namespace EmployeeManagement.Data.EF.Mapp
+namespace EmployeeManagement.Data.EF.Mappings
 {
     public class DataMappingProfile : Profile
     {
         public DataMappingProfile()
         {
-            CreateMap<DepartmentEntity, Department>()
-                .ForMember(s => s.CatalogEmployeeID, opt => opt.MapFrom(c => c.CatalogEmployeeID));
+            CreateMap<DepartmentEntity, Department>();
 
-            CreateMap<Department, DepartmentEntity>()
-                .ForMember(s => s.CatalogEmployeeID, opt => opt.MapFrom(c => c.CatalogEmployeeID));
+            CreateMap<Department, DepartmentEntity>();
 
             CreateMap<EmployeeEntity, Developer>()
                     .ForMember(x => x.Tasks, opt => opt.Ignore())
@@ -38,7 +36,6 @@ namespace EmployeeManagement.Data.EF.Mapp
             CreateMap<ServiceWorker, EmployeeEntity>()
                     .ForMember(s => s.Profession, opt => opt.MapFrom(c => c.TypeOfWorker))
                     .ForMember(s => s.Department, opt => opt.MapFrom(c => c.Department));
-
         }
     }
 }

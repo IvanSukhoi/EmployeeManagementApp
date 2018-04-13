@@ -6,6 +6,5 @@ namespace EmployeeManagement.Domain.Models
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public List<int> CatalogEmployeeID { get; set; }
     }
 }

@@ -30,14 +30,14 @@ namespace EmployeeManagement.Data.EF.Tests
         {
             var department = new Department
             {
-                CatalogEmployeeID = new List<int> { 1, 2 },
+                //CatalogEmployeeID = new List<int> { 1, 2 },
                 ID = 5,
                 Name = "HR"
             };
 
             var departmentEntity = new DepartmentEntity
             {
-                CatalogEmployeeID = new List<int> { 1, 2 },
+                //CatalogEmployeeID = new List<int> { 1, 2 },
                 ID = 5,
                 Name = "HR"
             };
@@ -49,13 +49,13 @@ namespace EmployeeManagement.Data.EF.Tests
 
             Assert.That(expectedMappedValue.ID, Is.EqualTo(5));
             Assert.That(expectedMappedValue.Name, Is.EqualTo("HR"));
-            Assert.That(expectedMappedValue.CatalogEmployeeID, Is.EquivalentTo(new[] { 1, 2 }));
+            //Assert.That(expectedMappedValue.CatalogEmployeeID, Is.EquivalentTo(new[] { 1, 2 }));
         }
 
         [Test]
         public void Delete_DepartmnetID_DeleteDepartmentInContext()
         {
-            _fakeContext.Departments.Add(new DepartmentEntity() { CatalogEmployeeID = null, ID = 10, Name = "HR" });
+            _fakeContext.Departments.Add(new DepartmentEntity() { /*CatalogEmployeeID = null,*/ ID = 10, Name = "HR" });
 
             _repository.Delete(10);
 
@@ -80,14 +80,14 @@ namespace EmployeeManagement.Data.EF.Tests
 
             var departmentEntity = new DepartmentEntity
             {
-                CatalogEmployeeID = new List<int> { 10, 12 },
+                //CatalogEmployeeID = new List<int> { 10, 12 },
                 ID = 15,
                 Name = "HR"
             };
 
             var department = new Department
             {
-                CatalogEmployeeID = new List<int> { 10, 12 },
+                //CatalogEmployeeID = new List<int> { 10, 12 },
                 ID = 15,
                 Name = "HR"
             };
@@ -102,7 +102,7 @@ namespace EmployeeManagement.Data.EF.Tests
 
             Assert.That(expectedMappedValue.ID, Is.EqualTo(15));
             Assert.That(expectedMappedValue.Name, Is.EqualTo("HR"));
-            Assert.That(expectedMappedValue.CatalogEmployeeID, Is.EquivalentTo(new[] { 10, 12 }));
+            //Assert.That(expectedMappedValue.CatalogEmployeeID, Is.EquivalentTo(new[] { 10, 12 }));
         }
 
         [Test]

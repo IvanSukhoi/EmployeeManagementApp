@@ -2,6 +2,6 @@
 {
     Intern,
     Junior,
-    Midle,
+    Middle,
     Senior
 }
