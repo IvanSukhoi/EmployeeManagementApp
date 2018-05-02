@@ -33,30 +33,30 @@ namespace EmployeeManagement.WebUI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public ViewResult EditManager(int id)
+        public JsonResult EditManager(int id)
         {
             var managerModel = _mapperFactory.MappEmployeeToEmployeeModel<ManagerModel>(_employeeService.Get(id));
             BuildEmployeeModel(managerModel);
 
-            return View(managerModel);
+            return new JsonResult { Data = managerModel, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
         [HttpGet]
-        public ViewResult EditDeveloper(int id)
+        public JsonResult EditDeveloper(int id)
         {
             var developerModel = _mapperFactory.MappEmployeeToEmployeeModel<DeveloperModel>(_employeeService.Get(id));
             BuildEmployeeModel(developerModel);
 
-            return View(developerModel);
+            return new JsonResult { Data = developerModel, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
         [HttpGet]
-        public ViewResult EditServiceWorker(int id)
+        public JsonResult EditServiceWorker(int id)
         {
             var serviceWorkerModel = _mapperFactory.MappEmployeeToEmployeeModel<ServiceWorkerModel>(_employeeService.Get(id));
             BuildEmployeeModel(serviceWorkerModel);
 
-            return View(serviceWorkerModel);
+            return new JsonResult { Data = serviceWorkerModel, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
         [HttpPost]
@@ -65,12 +65,12 @@ namespace EmployeeManagement.WebUI.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 SaveEmployeeModel(employeeModel);
-               
+
                 return RedirectToAction("Index");
             }
             else
             {
-                return View(employeeModel);
+                return PartialView(employeeModel);
             }
         }
 
@@ -104,25 +104,25 @@ namespace EmployeeManagement.WebUI.Areas.Admin.Controllers
             }
         }
 
-        public ViewResult CreateDeveloper()
+        public JsonResult CreateDeveloper()
         {
             var departmentModels = _departmentService.GetAll().Select(x => _mapper.Map<Department, DepartmentModel>(x)).ToList();
 
-            return View("EditDeveloper", new DeveloperModel { DepartmentModelList = departmentModels, ActionMethod = ActionMethod.Create});
+            return new JsonResult { Data = new DeveloperModel { DepartmentModelList = departmentModels }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
         public ViewResult CreateManager()
         {
             var departmentModels = _departmentService.GetAll().Select(x => _mapper.Map<Department, DepartmentModel>(x)).ToList();
 
-            return View("EditManager", new ManagerModel { DepartmentModelList = departmentModels, ActionMethod = ActionMethod.Create});
+            return View("Edit", new ManagerModel { DepartmentModelList = departmentModels, ActionMethod = ActionMethod.Create});
         }
 
         public ViewResult CreateServiceWorker()
         {
             var departmentModels = _departmentService.GetAll().Select(x => _mapper.Map<Department, DepartmentModel>(x)).ToList();
 
-            return View("EditServiceWorker", new ServiceWorkerModel { DepartmentModelList = departmentModels, ActionMethod = ActionMethod.Create});
+            return View("Edit", new ServiceWorkerModel { DepartmentModelList = departmentModels, ActionMethod = ActionMethod.Create});
         }
 
         [HttpPost]
@@ -146,7 +146,6 @@ namespace EmployeeManagement.WebUI.Areas.Admin.Controllers
         private void SaveEmployeeModel(EmployeeModel employeeModel)
         {
             var employee = _mapperFactory.MappEmployeeModelToEmployee(employeeModel);
-            TempData["message"] = string.Format("{0} has been saved", employee.FirstName + employee.LastName);
 
             if (employee.ID == 0)
             {

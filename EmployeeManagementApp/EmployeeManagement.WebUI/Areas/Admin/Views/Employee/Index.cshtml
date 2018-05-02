@@ -6,41 +6,67 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <h1>All Employees</h1>
-<table class="Grid">
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th class="NumericCol">Department</th>
-        <th>Actions</th>
-    </tr>
-    @foreach (var item in Model)
-    {
-    <tr>
-        <td>@item.ID</td>
-        @if (item.ModelType == ModelType.Developer)
+
+<table class="table table-condensed table-hover">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Department</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+        <tbody>
+        @foreach (var item in Model)
         {
-            <td>@Html.ActionLink(item.FirstName + item.LastName, "EditDeveloper", new { id = item.ID })</td>
+            <tr>
+                <th id="@item.ID" scope="row">@item.ID</th>
+                @if (item.ModelType == ModelType.Developer)
+                {
+                    <td id="developer" class="link" data-id="@item.ID">@item.FirstName @item.LastName</td>
+                }
+                @if (item.ModelType == ModelType.Manager)
+                {
+                    <td id="manager" class="link" data-id="@item.ID">@item.FirstName @item.LastName</td>
+                }
+                @if (item.ModelType == ModelType.ServiceWorker)
+                {
+                    <td id="serviceWorker" class="link" data-id="@item.ID">@item.FirstName @item.LastName</td>
+                }
+                <td id="@item.ID">@item.DepartmentName</td>
+                <td>
+                    @using (Html.BeginForm("Delete", "Employee"))
+                    {
+                        <input type="image" src="~/Content/Images/DeleteRed.png" width="20" height="20" alt="Delete">
+                    }
+                </td>
+            </tr>
         }
-        @if (item.ModelType == ModelType.Manager)
-        {
-            <td>@Html.ActionLink(item.FirstName + item.LastName, "EditManager", new { id = item.ID })</td>
-        }
-        @if (item.ModelType == ModelType.ServiceWorker)
-        {
-            <td>@Html.ActionLink(item.FirstName + item.LastName, "EditServiceWorker", new { id = item.ID })</td>
-        }
-        <td class="NumericCol">@item.DepartmentName</td>
-        <td>
-        @using (Html.BeginForm("Delete", "Employee"))
-        {
-            @Html.Hidden("ID", item.ID)
-            <input type="submit" value="Delete" />
-        }
-        </td>
-    </tr>
-    }
+        </tbody>
 </table>
 
-<p>@Html.ActionLink("Add a new manager", "CreateManager")</p>
-<p>@Html.ActionLink("Add a new developer", "CreateDeveloper")</p>
-<p>@Html.ActionLink("Add a new service worker", "CreateServiceWorker")</p>
+<br>
+<div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+        Add new...
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li id="manager">manager</li>
+        <li id="developer">developer</li>
+        <li id="serviceworker">service worker</li>
+    </ul>
+</div>
+
+<div id='myModal' class='modal fade'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/employee")
+
+@{Html.RenderPartial("Edit");}
+

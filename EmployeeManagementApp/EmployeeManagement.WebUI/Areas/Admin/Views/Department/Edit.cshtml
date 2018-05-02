@@ -1,18 +1,24 @@
-﻿@model EmployeeManagement.WebUI.Models.DepartmentModel
+﻿<script id="popup" type="text/x-handlebars-template">
 
-@{
-    ViewBag.Title = "Admin: Edit " + Model.Name;
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
-}
+    <div class="modal-header">
+        <button type="button" class="close" data-reject="modal" aria-hidden="true" id="closebtn">X</button>
+        <h4 class="modal-title" id="myModalLabel">{{Title}}</h4>
+    </div>
 
-<h1>Edit @Model.Name</h1>
-@using (Html.BeginForm("Edit", "Department"))
-{
-    <h4>
-        Name:
-        @Html.TextBoxFor(model => model.Name,
-                       new { style = "width: 150px" })
-    </h4>
-    <input type="submit" value="Save" />
-    @Html.ActionLink("Cancel and return to List", "Index")
-}
+    <div class="modal-body">
+        <input type="hidden" id="Id" name="Id" value="{{Id}}">
+
+        <div class="form-group row">
+            <label for="Name" class="col-sm-2 col-form-label">Name:</label>
+            <div class="col-sm-4">
+                <input class="form-control" type="text" id="Name" name="Name" value="{{Name}}" />
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-toggle="save" aria-pressed="false" autocomplete="off">Save</button>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/department")
+</script>

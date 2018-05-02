@@ -39,7 +39,7 @@ namespace EmployeeManagement.Data.EF.Tests
                 DepartmentID = 12,
                 Sex = Sex.Female,
                 FirstName = "Name1",
-                MidleName = null,
+                MiddleName = null,
                 LastName = "LastName1",
                 Position = Position.Intern,
             };
@@ -78,7 +78,7 @@ namespace EmployeeManagement.Data.EF.Tests
                 DepartmentID = 12,
                 Sex = Sex.Female,
                 FirstName = "Name1",
-                MidleName = null,
+                MiddleName = null,
                 LastName = "LastName1"
             };
 
@@ -114,7 +114,7 @@ namespace EmployeeManagement.Data.EF.Tests
                 DepartmentID = 12,
                 Sex = Sex.Female,
                 FirstName = "Name1",
-                MidleName = null,
+                MiddleName = null,
                 LastName = "LastName1", 
                 TypeOfWorker = Profession.SystemAdministrator
             };
@@ -212,7 +212,7 @@ namespace EmployeeManagement.Data.EF.Tests
             Assert.That(expectedMappedValue.DepartmentID, Is.EqualTo(employee.DepartmentID));
             Assert.That(expectedMappedValue.Sex, Is.EqualTo(employee.Sex));
             Assert.That(expectedMappedValue.FirstName, Is.EqualTo(employee.FirstName));
-            Assert.That(expectedMappedValue.MidleName, Is.EqualTo(employee.MidleName));
+            Assert.That(expectedMappedValue.MidleName, Is.EqualTo(employee.MiddleName));
             Assert.That(expectedMappedValue.LastName, Is.EqualTo(employee.LastName));
         }
     }

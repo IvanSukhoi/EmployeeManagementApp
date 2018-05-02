@@ -7,7 +7,7 @@ namespace EmployeeManagement.WebUI.Models
     public abstract class EmployeeModel
     {
         public string FirstName { get; set; }
-        public string MidleName { get; set; }
+        public string MiddleName { get; set; }
         public string LastName { get; set; }
 
         public int ID { get; set; }

@@ -28,9 +28,19 @@ namespace EmployeeManagement.WebUI
 
             bundles.Add(new ScriptBundle("~/bundles/clientfeaturesscripts")
                     .Include("~/Scripts/jquery-{version}.js",
-                        "~/Scripts/jquery.validate.js",
-                        "~/Scripts/jquery.validate.unobtrusive.js",
-                        "~/Scripts/jquery.unobtrusive-ajax.js"));
+                        "~/Scripts/jquery.unobtrusive-ajax.js",
+                        "~/Scripts/handlebars-v4.0.11.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/employee").Include(
+                   "~/Scripts/employee.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/department").Include(
+                    "~/Scripts/department.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/bootstrapstyle")
+                .Include("~/Scripts/ajax-jquery-v3.2.0.min.js",
+                         "~/Scripts/bootstrap-v3.3.7.min.js"
+                ));
         }
     }
 }

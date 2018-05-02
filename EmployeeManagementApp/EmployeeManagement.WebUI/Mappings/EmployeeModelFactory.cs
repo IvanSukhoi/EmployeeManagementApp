@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EmployeeManagement.Domain.Models;
+using EmployeeManagement.WebUI.Exceptions;
 using EmployeeManagement.WebUI.Models;
 using System;
 
@@ -43,7 +44,7 @@ namespace EmployeeManagement.WebUI.Mappings
                 return serviceWorkerModel as T;
             }
 
-            throw new Exception("This type is can not be mapped");
+            throw new EmployeeNotFoundException("This type is can not be mapped");
         }
 
         public Employee MappEmployeeModelToEmployee<T>(T employeeModel) where T : EmployeeModel
@@ -64,7 +65,7 @@ namespace EmployeeManagement.WebUI.Mappings
             }
 
 
-            throw new Exception("This type is can not be mapped");
+            throw new EmployeeNotFoundException("This type is can not be mapped");
         }
     }
 }

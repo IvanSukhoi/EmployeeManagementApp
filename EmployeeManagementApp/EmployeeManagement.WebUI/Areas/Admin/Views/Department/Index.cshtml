@@ -6,25 +6,38 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <h1>All Departments</h1>
-<table class="Grid">
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Actions</th>
-    </tr>
+<table class="table table-condensed table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Department</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
     @foreach (var item in Model)
     {
-        <tr>
-            <td>@item.Id</td>
-            <td>@Html.ActionLink(item.Name, "Edit", new { item.Id })</td>
-            <td>
-                @using (Html.BeginForm("Delete", "Department"))
-                {
-                    @Html.Hidden("Id", item.Id)
-                    <input type="submit" value="Delete" />
-                }
-            </td>
+        <tr name ="@item.Id">
+        <th scope="row">@item.Id</th>
+        <td id="@item.Id" class="edit" data-id="@item.Id">@item.Name</td>
+        <td class="delete" data-id="@item.Id" name="delete"><img src="~/Content/Images/DeleteRed.png" width="20" height="20" alt="Delete"></td>
         </tr>
     }
+    </tbody>
 </table>
-<p>@Html.ActionLink("Add a new Department", "Create")</p>
+
+<div id='myModal' class='modal fade'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/department")
+
+@{Html.RenderPartial("Delete");}
+@{Html.RenderPartial("Edit");}
+<br>
+
+<button id="create" class="btn btn-success text-center">Add a new Department</button>

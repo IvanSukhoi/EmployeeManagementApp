@@ -1,0 +1,94 @@
+﻿<script id="popup" type="text/x-handlebars-template">
+        
+        <div class="modal-header">
+            <button type="button" class="close" data-reject="modal" aria-hidden="true" id="closebtn">X</button>
+            <h4 class="modal-title" id="myModalLabel">{{Title}}</h4>
+            </div>
+        <div class="modal-body">
+
+            <input type="hidden" id="ID" name="ID" value={{ID}} />
+
+            <div class="form-group row">
+                <label for="FirstName" class="col-sm-2 col-form-label">FirstName:</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" id="FirstName" name="FirstName" value="{{FirstName}}" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="MiddleName" class="col-sm-2 col-form-label">MiddleName:</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" id="MiddleName" name="MiddleName" value="{{MiddleName}}" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="LastName" class="col-sm-2 col-form-label">LastName:</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" id="LastName" name="LastName" value="{{LastName}}" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="ManagerID" class="col-sm-2 col-form-label">ManagerId:</label>
+                <div class="col-sm-2">
+                    <input class="form-control" type="text" id="ManagerID" name="ManagerID" value="{{ManagerID}}" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="Sex" class="col-sm-2 col-form-label">Sex:</label>
+                <div class="col-sm-3">
+                    <select class="form-control" id="Sex" name="Sex">
+                        {{#each SexParameters}}
+                        <option value={{this.value}} {{isSelectedSex this.value}}>{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="Profession" class="col-sm-2 col-form-label">Profession:</label>
+                <div class="col-sm-4">
+                    {{#if_eq Profession}}
+                    <select class="form-control form-control-sm" id="TypeOfWorker" name="TypeOfWorker">
+                        {{#each ProfessionParameters}}
+                        <option value={{this.value}} {{isSelectedProfession this.value}}>{{this.name}}</option>
+                        {{/each}}
+                        {{else}}
+                        {{GetProfession}}
+                        {{/if_eq}}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="DepartmentID" class="col-sm-2 col-form-label">Department:</label>
+                <div class="col-sm-4">
+                    <select class="form-control form-control-sm" id="DepartmentID" name="DepartmentID">
+                        {{#each DepartmentList}}
+                        <option value={{this.Id}} {{isSelectedDepartment this.Id}}>{{this.Name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{#if_eq Position}}
+                <label for="Position" class="col-sm-2 col-form-label">Position:</label>
+                <div class="col-sm-4">
+                    <select class="form-control form-control-sm" id="Position" name="Position">
+                        {{#each PositionParameters}}
+                        <option value={{this.value}} {{isSelectedPosition this.value}}>{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                    {{/if_eq}}
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-toggle="save" aria-pressed="false" autocomplete="off">Save</button>
+            </div>
+        </div>
+            @Scripts.Render("~/bundles/employee")
+</script>

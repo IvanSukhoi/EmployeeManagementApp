@@ -46,7 +46,7 @@ namespace EmployeeManagement.Domain.Tests
                     DepartmentID = 19,
                     Sex = Sex.Female,
                     FirstName = "Name1",
-                    MidleName = null,
+                    MiddleName = null,
                     LastName = "LastName1",
                     ManagerID = 1,
                     Position = Position.Middle,

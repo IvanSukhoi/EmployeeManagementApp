@@ -26,17 +26,17 @@ namespace EmployeeManagement.WebUI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public ViewResult Edit(int id)
+        public JsonResult Edit(int id)
         {
             var departmentModel = _mapper.Map<Department, DepartmentModel>(_departmentService.Get(id));
 
-            return View(departmentModel);
+            return new JsonResult { Data = departmentModel, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
         [HttpPost]
         public ActionResult Edit(DepartmentModel departmentModel)
         {
-            if (ModelState.IsValid)
+            if (!string.IsNullOrEmpty(departmentModel.Name))
             {
                 var department = _mapper.Map<DepartmentModel, Department>(departmentModel);
 
@@ -50,12 +50,12 @@ namespace EmployeeManagement.WebUI.Areas.Admin.Controllers
                 }
 
                 TempData["message"] = string.Format("{0} department has been saved", department.Name);
-   
+
                 return RedirectToAction("Index");
             }
             else
             {
-                return View(departmentModel);
+                return RedirectToAction("Index");
             }
         }
 
@@ -71,9 +71,10 @@ namespace EmployeeManagement.WebUI.Areas.Admin.Controllers
             _departmentService.Delete(id);
             if (department != null)
             {
-                TempData["message"] = string.Format("{0} department was deleted", department.Name);
+                return new JsonResult { Data =  new { message = string.Format("{0} department was deleted", department.Name) } };
             }
-            return RedirectToAction("Index");
+
+            return new JsonResult { Data = new { message = string.Format("Department was not found") } };
         }
     }
 }

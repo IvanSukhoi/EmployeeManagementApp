@@ -47,7 +47,7 @@ namespace EmployeeManagement.Domain.Tests
                 DepartmentID = 23,
                 Sex = Sex.Female,
                 FirstName = "Name3",
-                MidleName = null,
+                MiddleName = null,
                 LastName = "LastName3",
                 ManagerID = 3,
                 Position = Position.Senior,
@@ -63,7 +63,7 @@ namespace EmployeeManagement.Domain.Tests
             Assert.That(expectedValue.DepartmentID, Is.EqualTo(23));
             Assert.That(expectedValue.Sex, Is.EqualTo(Sex.Female));
             Assert.That(expectedValue.FirstName, Is.EqualTo("Name3"));
-            Assert.That(expectedValue.MidleName, Is.Null);
+            Assert.That(expectedValue.MiddleName, Is.Null);
             Assert.That(expectedValue.LastName, Is.EqualTo("LastName3"));
             Assert.That(expectedValue.ManagerID, Is.EqualTo(3));
             Assert.That(expectedValue.Department, Is.Null);
@@ -79,7 +79,7 @@ namespace EmployeeManagement.Domain.Tests
                     DepartmentID = 19,
                     Sex = Sex.Female,
                     FirstName = "Name1",
-                    MidleName = null,
+                    MiddleName = null,
                     LastName = "LastName1",
                     ManagerID = 1,
                     Position = Position.Middle,
@@ -92,7 +92,7 @@ namespace EmployeeManagement.Domain.Tests
                     DepartmentID = 19,
                     Sex = Sex.Male,
                     FirstName = "Name2",
-                    MidleName = null,
+                    MiddleName = null,
                     LastName = "LastName2",
                     ManagerID = 10,
                     Department = null
